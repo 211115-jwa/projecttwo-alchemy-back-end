@@ -3,14 +3,28 @@ package com.revature.ProTwo.beans;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+@Entity
 public class UserComment {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long commentId;
-	private Review review;
-	private User user;
+	
 	private String CommentText;
 	private LocalDateTime sentAt;
 	
+	@ManyToOne
+	@JoinColumn(name="review_id")
+	private Review review;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	public UserComment() {
 
