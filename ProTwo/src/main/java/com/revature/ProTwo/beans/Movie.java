@@ -2,13 +2,28 @@ package com.revature.ProTwo.beans;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Movie {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long movieId;
+	
 	private String movieName;
+	
+	@Column(name="movie_year")
 	private int year;
+	
 	private String description;
+	
 	private String movieRating;
+	
 	private String genre;
 	
 	public Movie() {

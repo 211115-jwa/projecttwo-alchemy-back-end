@@ -2,16 +2,30 @@ package com.revature.ProTwo.beans;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Review {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long reviewId;
-	private User user;
-	private Movie movie;
 	private String reviewTitle;
 	private String reviewText;
 	private int ratingReview;
 	private LocalDateTime sentAt;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	@ManyToOne
+	@JoinColumn(name="movie_id")
+	private Movie movie;
 	
 	public Review() {
 

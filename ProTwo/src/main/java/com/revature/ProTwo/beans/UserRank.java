@@ -2,9 +2,17 @@ package com.revature.ProTwo.beans;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class UserRank {
-private long rankId;
-private String rankTitle;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long rankId;
+	private String rankTitle;
 
 	public UserRank() {
 		rankId = 1L;
@@ -48,6 +56,6 @@ private String rankTitle;
 	public String toString() {
 		return "UserRank [rankId=" + rankId + ", rankTitle=" + rankTitle + "]";
 	}
-	
-	
+
+
 }
