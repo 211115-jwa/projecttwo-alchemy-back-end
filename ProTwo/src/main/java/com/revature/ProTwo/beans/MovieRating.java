@@ -1,52 +1,51 @@
 package com.revature.ProTwo.beans;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 
+
+//@IdClass(RatingId.class)
 @Entity
-public class MovieRating {
+public class MovieRating implements Serializable {
 	
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private User user;
-	private Movie movie;
+	/**
+	 * two different ways
+	 *  may need to use @IdClass instead of @Embeddable
+	 *  needs testing, link in slack
+	 *  
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private RatingId ratingId;
 
 	@Column(name="rating")
 	private int userRating;
 
 
-	public MovieRating() {
+	
+	public MovieRating(RatingId ratingId, int userRating) {
+        this.ratingId = ratingId;
+        this.userRating = userRating;
+    }
 
-		userRating = 1;
-		user = new User();
-		movie = new Movie();
 
+
+	public RatingId getRatingId() {
+		return ratingId;
 	}
 
 
-	public User getUser() {
-		return user;
+
+	public void setRatingId(RatingId ratingId) {
+		this.ratingId = ratingId;
 	}
 
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
 
 
 	public int getUserRating() {
@@ -54,15 +53,18 @@ public class MovieRating {
 	}
 
 
+
 	public void setUserRating(int userRating) {
 		this.userRating = userRating;
 	}
 
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(movie, user, userRating);
+		return Objects.hash(ratingId, userRating);
 	}
+
 
 
 	@Override
@@ -74,17 +76,16 @@ public class MovieRating {
 		if (getClass() != obj.getClass())
 			return false;
 		MovieRating other = (MovieRating) obj;
-		return Objects.equals(movie, other.movie) && Objects.equals(user, other.user) && userRating == other.userRating;
+		return Objects.equals(ratingId, other.ratingId) && userRating == other.userRating;
 	}
+
 
 
 	@Override
 	public String toString() {
-		return "MovieRating [user=" + user + ", movie=" + movie + ", userRating=" + userRating + ", getUser()="
-				+ getUser() + ", getMovie()=" + getMovie() + ", getUserRating()=" + getUserRating() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+		return "MovieRating [ratingId=" + ratingId + ", userRating=" + userRating + "]";
 	}
 
-
+	
 
 }
