@@ -1,36 +1,27 @@
 package com.revature.ProTwo.beans;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 
+public class ReviewId implements Serializable{
 
-
-@Embeddable
-public class RatingId implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-// I included the schema but not sure if it is needed
-	
-	@Column(name = "Project2.p_user.user_id")
-    private Long userId;
 
-    @Column(name = "Project2.movie.movie_id")
-    private Long movieId;
+	@Column(name = "user_id")
+	private Long userId;
 
-    public RatingId() {
-    }
+	@Column(name = "review_id")
+	private Long movieId;
 
-    public RatingId(Long userId, Long movieId) {
-        this.userId = userId;
-        this.movieId = movieId;
-    }
+	public ReviewId() {
+
+	}
+
+	public ReviewId(Long movieId, Long userId) {
+		this.movieId = movieId;
+		this.userId = userId;
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -61,10 +52,7 @@ public class RatingId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RatingId other = (RatingId) obj;
+		ReviewId other = (ReviewId) obj;
 		return Objects.equals(movieId, other.movieId) && Objects.equals(userId, other.userId);
 	}
-
-	
-
 }
