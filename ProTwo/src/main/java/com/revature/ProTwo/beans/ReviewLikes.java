@@ -2,43 +2,39 @@ package com.revature.ProTwo.beans;
 
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//For IdClass method
+//import javax.persistence.Id;
+//import javax.persistence.IdClass;
 
+//For IdClass method
+//@IdClass(ReviewLikesId.class)
 @Entity
 public class ReviewLikes {
 
+	//For IdClass method
 	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private User user;
-	private Review review;
+	//private User user;
+	//@Id
+	//private Review review;
+	@EmbeddedId
+	private ReviewLikesId reviewLikesId;	
 	
 	private boolean liked;
-	
-	public ReviewLikes() {
 
-		liked = false;
-		user = new User();
-		review = new Review();
-		
+	public ReviewLikes(ReviewLikesId reviewLikesId, boolean liked) {
+		super();
+		this.reviewLikesId = reviewLikesId;
+		this.liked = liked;
 	}
 
-	public User getUser() {
-		return user;
+	public ReviewLikesId getReviewLikesId() {
+		return reviewLikesId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Review getReview() {
-		return review;
-	}
-
-	public void setReview(Review review) {
-		this.review = review;
+	public void setReviewLikesId(ReviewLikesId reviewLikesId) {
+		this.reviewLikesId = reviewLikesId;
 	}
 
 	public boolean isLiked() {
@@ -50,15 +46,8 @@ public class ReviewLikes {
 	}
 
 	@Override
-	public String toString() {
-		return "ReviewLikes [user=" + user + ", review=" + review + ", liked=" + liked + ", getUser()=" + getUser()
-				+ ", getReview()=" + getReview() + ", isLiked()=" + isLiked() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
-	@Override
 	public int hashCode() {
-		return Objects.hash(liked, review, user);
+		return Objects.hash(liked, reviewLikesId);
 	}
 
 	@Override
@@ -70,8 +59,13 @@ public class ReviewLikes {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewLikes other = (ReviewLikes) obj;
-		return liked == other.liked && Objects.equals(review, other.review) && Objects.equals(user, other.user);
+		return liked == other.liked && Objects.equals(reviewLikesId, other.reviewLikesId);
 	}
 
+	@Override
+	public String toString() {
+		return "ReviewLikes [reviewLikesId=" + reviewLikesId + ", liked=" + liked + "]";
+	}
+	
 	
 }

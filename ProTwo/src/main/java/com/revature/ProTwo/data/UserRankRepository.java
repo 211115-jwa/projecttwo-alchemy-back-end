@@ -1,4 +1,4 @@
-package com.revature.Repos;
+package com.revature.ProTwo.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
