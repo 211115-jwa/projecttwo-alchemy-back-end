@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long userId;
+	private int userId;
 	private String firstName;
 	private String lastName;
 	private String username;
@@ -26,7 +26,7 @@ public class User {
 	private UserRank rank;
 
 	public User() {
-		userId = 1L;
+		userId = 1;
 		firstName = null;
 		lastName = null;
 		username=null;
@@ -34,11 +34,11 @@ public class User {
 		rank=null;
 	}
 
-	public long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
