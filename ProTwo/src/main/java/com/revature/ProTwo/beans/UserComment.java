@@ -14,7 +14,7 @@ public class UserComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long commentId;
+	private int commentId;
 	
 	private String CommentText;
 	private LocalDateTime sentAt;
@@ -28,22 +28,21 @@ public class UserComment {
 	
 	public UserComment() {
 
-		commentId = 1L;
+		commentId = 1;
 		review = new Review();
 		user = new User();
 		CommentText = "";
 		sentAt = null;
-		
-		
+	
 	}
 
 
-	public long getCommentId() {
+	public int getCommentId() {
 		return commentId;
 	}
 
 
-	public void setCommentId(long commentId) {
+	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
 
