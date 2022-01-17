@@ -10,35 +10,23 @@ import javax.persistence.Id;
 @Entity
 public class ReviewLikes {
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private User user;
-	private Review review;
+	@Id
+	private ReviewId reviewId;
 	
 	private boolean liked;
 	
-	public ReviewLikes() {
-
-		liked = false;
-		user = new User();
-		review = new Review();
+	public ReviewLikes(ReviewId reviewId, boolean liked) {
 		
+		this.liked = liked;
+		this.reviewId = reviewId;
 	}
 
-	public User getUser() {
-		return user;
+	public ReviewId getReviewId() {
+		return reviewId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Review getReview() {
-		return review;
-	}
-
-	public void setReview(Review review) {
-		this.review = review;
+	public void setReviewId(ReviewId reviewId) {
+		this.reviewId = reviewId;
 	}
 
 	public boolean isLiked() {
@@ -50,15 +38,8 @@ public class ReviewLikes {
 	}
 
 	@Override
-	public String toString() {
-		return "ReviewLikes [user=" + user + ", review=" + review + ", liked=" + liked + ", getUser()=" + getUser()
-				+ ", getReview()=" + getReview() + ", isLiked()=" + isLiked() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
-
-	@Override
 	public int hashCode() {
-		return Objects.hash(liked, review, user);
+		return Objects.hash(liked, reviewId);
 	}
 
 	@Override
@@ -70,8 +51,8 @@ public class ReviewLikes {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewLikes other = (ReviewLikes) obj;
-		return liked == other.liked && Objects.equals(review, other.review) && Objects.equals(user, other.user);
+		return liked == other.liked && Objects.equals(reviewId, other.reviewId);
 	}
 
-	
+
 }
