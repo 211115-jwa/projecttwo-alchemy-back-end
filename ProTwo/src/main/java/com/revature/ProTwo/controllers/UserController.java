@@ -20,8 +20,8 @@ import com.revature.ProTwo.exceptions.UsernameAlreadyExistsException;
 import com.revature.ProTwo.services.UserService;
 
 @RestController
-@RequestMapping(path = "/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(path="/user")
+@CrossOrigin(origins="http://localhost:4200")
 public class UserController {
 	
 	private static UserService userServ;

@@ -6,8 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user_rank")
 public class UserRank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
