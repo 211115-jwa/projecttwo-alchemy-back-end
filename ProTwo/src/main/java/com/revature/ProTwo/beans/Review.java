@@ -14,7 +14,7 @@ public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long reviewId;
+	private int reviewId;
 	private String reviewTitle;
 	private String reviewText;
 	private int ratingReview;
@@ -29,7 +29,7 @@ public class Review {
 	
 	public Review() {
 
-		reviewId = 1L;
+		reviewId = 1;
 		user = new User();
 		movie = new Movie();
 		reviewTitle = "";
@@ -41,11 +41,11 @@ public class Review {
 		
 	}
 
-	public long getReviewId() {
+	public int getReviewId() {
 		return reviewId;
 	}
 
-	public void setReviewId(long reviewId) {
+	public void setReviewId(int reviewId) {
 		this.reviewId = reviewId;
 	}
 
