@@ -46,9 +46,11 @@ public class ReviewLikes {
 		this.liked = liked;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(liked, reviewId);
+		return Objects.hash(liked, reviewLikesId);
 	}
 
 	@Override
