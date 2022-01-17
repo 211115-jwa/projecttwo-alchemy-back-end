@@ -2,31 +2,40 @@ package com.revature.ProTwo.beans;
 
 import java.util.Objects;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//For IdClass method
+//import javax.persistence.Id;
+//import javax.persistence.IdClass;
 
+//For IdClass method
+//@IdClass(ReviewLikesId.class)
 @Entity
 public class ReviewLikes {
 
-	@Id
-	private ReviewId reviewId;
+
+	//For IdClass method
+	//@Id
+	//private User user;
+	//@Id
+	//private Review review;
+	@EmbeddedId
+	private ReviewLikesId reviewLikesId;	
 	
 	private boolean liked;
-	
-	public ReviewLikes(ReviewId reviewId, boolean liked) {
-		
+
+	public ReviewLikes(ReviewLikesId reviewLikesId, boolean liked) {
+		super();
+		this.reviewLikesId = reviewLikesId;
 		this.liked = liked;
-		this.reviewId = reviewId;
 	}
 
-	public ReviewId getReviewId() {
-		return reviewId;
+	public ReviewLikesId getReviewLikesId() {
+		return reviewLikesId;
 	}
 
-	public void setReviewId(ReviewId reviewId) {
-		this.reviewId = reviewId;
+	public void setReviewLikesId(ReviewLikesId reviewLikesId) {
+		this.reviewLikesId = reviewLikesId;
 	}
 
 	public boolean isLiked() {
@@ -51,8 +60,14 @@ public class ReviewLikes {
 		if (getClass() != obj.getClass())
 			return false;
 		ReviewLikes other = (ReviewLikes) obj;
-		return liked == other.liked && Objects.equals(reviewId, other.reviewId);
+		return liked == other.liked && Objects.equals(reviewLikesId, other.reviewLikesId);
 	}
 
+	@Override
+	public String toString() {
+		return "ReviewLikes [reviewLikesId=" + reviewLikesId + ", liked=" + liked + "]";
+	}
+	
+	
 
 }
