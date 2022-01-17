@@ -23,11 +23,13 @@ import com.revature.ProTwo.services.UserService;
 @RequestMapping(path = "/user")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
+	
 	private static UserService userServ;
 
 	@Autowired
 	public UserController(UserService userServ) {
-		UserController.userServ=userServ;
+		
+		this.userServ=userServ;
 	}
 
 	// POST to /users
