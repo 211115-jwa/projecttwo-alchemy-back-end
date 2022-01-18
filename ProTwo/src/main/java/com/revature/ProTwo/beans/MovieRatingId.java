@@ -14,10 +14,10 @@ public class MovieRatingId implements Serializable {
 	//default serialVersionUID
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "Project2.p_user.user_id")
+	@Column(name = "p_user.id")
     private Long userId;
 
-    @Column(name = "Project2.movie.movie_id")
+    @Column(name = "movie.id")
     private Long movieId;
 
     public MovieRatingId() {

@@ -29,22 +29,23 @@ public class UserController {
 	@Autowired
 	public UserController(UserService userServ) {
 		
-		this.userServ=userServ;
+		UserController.userServ=userServ;
 	}
 
-	// POST to /users
+	// POST to /user
+	@PostMapping
 	public ResponseEntity<Map<String, Integer>> register(@RequestBody User newUser) {
 		try {
 			newUser = userServ.register(newUser);
 			Map<String, Integer> newIdMap = new HashMap<>();
-			newIdMap.put("generatedId", newUser.getUserId());
+			newIdMap.put("generatedId", newUser.getId());
 			return ResponseEntity.status(HttpStatus.CREATED).body(newIdMap);
 		} catch (UsernameAlreadyExistsException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
 
-	// POST to /users/auth
+	// POST to /user/auth
 	@PostMapping(path = "/auth")
 	public ResponseEntity<String> logIn(@RequestBody Map<String, String> credentials) {
 		String username = credentials.get("username");
@@ -52,14 +53,14 @@ public class UserController {
 
 		try {
 			User user = userServ.logIn(username, password);
-			String token = Integer.toString(user.getUserId());
+			String token = Integer.toString(user.getId());
 			return ResponseEntity.ok(token);
 		} catch (IncorrectCredentialsException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	// GET to /users/{userId}/auth
+	// GET to /user/{userId}/auth
 	@GetMapping(path = "/{userId}/auth")
 	public ResponseEntity<User> checkLogin(@RequestBody String token, @PathVariable int userId) {
 		User loggedInUser = userServ.getUserById(userId);
@@ -70,7 +71,7 @@ public class UserController {
 		}
 	}
 
-	// GET to /users/{userId}
+	// GET to /user/{userId}
 	@GetMapping(path = "/{userId}")
 	public ResponseEntity<User> getUserById(@PathVariable int userId) {
 		User user = userServ.getUserById(userId);
@@ -80,10 +81,10 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 	}
 
-	// PUT to /users/{userId}
+	// PUT to /user/{userId}
 	@PutMapping(path = "/{userId}")
 	public ResponseEntity<User> updateUser(@RequestBody User userToEdit, @PathVariable int userId) {
-		if (userToEdit != null && userToEdit.getUserId() == userId) {
+		if (userToEdit != null && userToEdit.getId() == userId) {
 			userToEdit = userServ.updateUser(userToEdit);
 			if (userToEdit != null)
 				return ResponseEntity.ok(userToEdit);

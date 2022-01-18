@@ -28,9 +28,9 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public UserComment create(UserComment userCmm) throws CommentNotFoundException {
 		
-		int newCmm = cmmtRepo.save(userCmm).getCommentId();
+		int newCmm = cmmtRepo.save(userCmm).getId();
 		if (newCmm > 0) {
-			userCmm.setCommentId(newCmm);
+			userCmm.setId(newCmm);
 			return userCmm;
 		} else if (newCmm == -1) {
 			throw new CommentNotFoundException();

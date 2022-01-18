@@ -13,10 +13,10 @@ public class ReviewLikesId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//I included the schema but not sure if it is needed
-	@Column(name = "Project2.p_user.user_id")
+	@Column(name = "p_user.id")
     private Long userId;
 
-    @Column(name = "Project2.review.review_id")
+    @Column(name = "review.id")
     private Long reviewId;
 
 	public ReviewLikesId(Long userId, Long reviewId) {

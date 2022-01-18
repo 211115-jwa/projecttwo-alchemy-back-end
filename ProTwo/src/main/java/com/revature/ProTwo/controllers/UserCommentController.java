@@ -37,7 +37,7 @@ public class UserCommentController {
 		try {
 			newUserCmm = cmmServ.create(newUserCmm);
 			Map<String, Integer> newIdMap = new HashMap<>();
-			newIdMap.put("generatedId", newUserCmm.getCommentId());
+			newIdMap.put("generatedId", newUserCmm.getId());
 			return ResponseEntity.status(HttpStatus.CREATED).body(newIdMap);
 		} catch (CommentNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -51,7 +51,7 @@ public class UserCommentController {
 		
 		newUserCmm = cmmServ.delete(newUserCmm);
 		Map<String, Integer> newIdMap = new HashMap<>();
-		newIdMap.remove("generatedId", newUserCmm.getCommentId());
+		newIdMap.remove("generatedId", newUserCmm.getId());
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newIdMap);
 	}
 

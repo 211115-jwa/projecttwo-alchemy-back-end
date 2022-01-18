@@ -14,7 +14,7 @@ public class UserComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int commentId;
+	private int id;
 	
 	private String CommentText;
 	private LocalDateTime sentAt;
@@ -28,7 +28,7 @@ public class UserComment {
 	
 	public UserComment() {
 
-		commentId = 1;
+		id = 1;
 		review = new Review();
 		user = new User();
 		CommentText = "";
@@ -37,13 +37,13 @@ public class UserComment {
 	}
 
 
-	public int getCommentId() {
-		return commentId;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -89,7 +89,7 @@ public class UserComment {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(CommentText, commentId, review, sentAt, user);
+		return Objects.hash(CommentText, id, review, sentAt, user);
 	}
 
 
@@ -102,7 +102,7 @@ public class UserComment {
 		if (getClass() != obj.getClass())
 			return false;
 		UserComment other = (UserComment) obj;
-		return Objects.equals(CommentText, other.CommentText) && commentId == other.commentId
+		return Objects.equals(CommentText, other.CommentText) && id == other.id
 				&& Objects.equals(review, other.review) && Objects.equals(sentAt, other.sentAt)
 				&& Objects.equals(user, other.user);
 	}
@@ -110,7 +110,7 @@ public class UserComment {
 
 	@Override
 	public String toString() {
-		return "UserComment [commentId=" + commentId + ", review=" + review + ", user=" + user + ", CommentText="
+		return "UserComment [id=" + id + ", review=" + review + ", user=" + user + ", CommentText="
 				+ CommentText + ", sentAt=" + sentAt + "]";
 	}
 	

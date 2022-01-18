@@ -39,8 +39,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review postNewReview(Review newReview) {
-		int newId = revRepo.save(newReview).getReviewId();
-		newReview.setReviewId(newId);
+		int newId = revRepo.save(newReview).getId();
+		newReview.setId(newId);
 		return newReview;
 	}
 

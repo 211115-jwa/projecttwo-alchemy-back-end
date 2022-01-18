@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User register(User newUser) throws UsernameAlreadyExistsException {
-		int newId = userRepo.save(newUser).getUserId();
+		int newId = userRepo.save(newUser).getId();
 		if (newId > 0) {
-			newUser.setUserId(newId);
+			newUser.setId(newId);
 			return newUser;
 		} else if (newId == -1) {
 			throw new UsernameAlreadyExistsException();
@@ -52,9 +52,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public User updateUser(User userToUpdate) {
-		if (userRepo.existsById(userToUpdate.getUserId())) {
+		if (userRepo.existsById(userToUpdate.getId())) {
 			userRepo.save(userToUpdate);
-			userToUpdate = userRepo.findById(userToUpdate.getUserId()).get();
+			userToUpdate = userRepo.findById(userToUpdate.getId()).get();
 			return userToUpdate;
 		}
 		return null;

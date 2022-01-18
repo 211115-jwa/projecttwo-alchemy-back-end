@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String username;
@@ -25,26 +25,26 @@ public class User {
 	private String password;
 	
 	@ManyToOne
-	//@JoinColumn(name="rank_id") // name of the fk
-	@JoinTable(name = "user_rank",
-	joinColumns = @JoinColumn(name="user_id"))
+	@JoinColumn(name="rank_id") // name of the fk
+	//@JoinTable(name = "user_rank",
+	//joinColumns = @JoinColumn(name="user_id"))
 	private UserRank rank;
 
 	public User() {
-		userId = 1;
-		firstName = null;
-		lastName = null;
-		username=null;
-		password=null;
-		rank=null;
+		id = 0;
+		firstName = "first";
+		lastName = "last";
+		username= "username";
+		password= "password";
+		rank= new UserRank();
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setId(int userId) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -89,7 +89,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(firstName, lastName, password, rank, userId, username);
+		return Objects.hash(firstName, lastName, password, rank, id, username);
 	}
 
 	@Override
@@ -102,13 +102,13 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(password, other.password) && rank == other.rank && userId == other.userId
+				&& Objects.equals(password, other.password) && rank == other.rank && id == other.id
 				&& Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
 				+ ", password=" + password + ", rankId=" + rank + "]";
 	}
 

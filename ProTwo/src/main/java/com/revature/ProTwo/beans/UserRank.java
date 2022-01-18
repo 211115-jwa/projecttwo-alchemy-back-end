@@ -13,20 +13,20 @@ import javax.persistence.Table;
 public class UserRank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long rankId;
+	private int id;
 	private String rankTitle;
 
 	public UserRank() {
-		rankId = 1L;
+		id = 1;
 		rankTitle = "User";
 	}
 
-	public long getRankId() {
-		return rankId;
+	public long getId() {
+		return id;
 	}
 
-	public void setRankId(long rankId) {
-		this.rankId = rankId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getRankTitle() {
@@ -39,7 +39,7 @@ public class UserRank {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(rankId, rankTitle);
+		return Objects.hash(id, rankTitle);
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class UserRank {
 		if (getClass() != obj.getClass())
 			return false;
 		UserRank other = (UserRank) obj;
-		return rankId == other.rankId && Objects.equals(rankTitle, other.rankTitle);
+		return id == other.id && Objects.equals(rankTitle, other.rankTitle);
 	}
 
 	@Override
 	public String toString() {
-		return "UserRank [rankId=" + rankId + ", rankTitle=" + rankTitle + "]";
+		return "UserRank [id=" + id + ", rankTitle=" + rankTitle + "]";
 	}
 
 

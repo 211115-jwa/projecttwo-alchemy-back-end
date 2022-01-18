@@ -14,7 +14,7 @@ public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int reviewId;
+	private int id;
 	private String reviewTitle;
 	private String reviewText;
 	private int ratingReview;
@@ -29,7 +29,7 @@ public class Review {
 	
 	public Review() {
 
-		reviewId = 1;
+		id = 1;
 		user = new User();
 		movie = new Movie();
 		reviewTitle = "";
@@ -41,12 +41,12 @@ public class Review {
 		
 	}
 
-	public int getReviewId() {
-		return reviewId;
+	public int getId() {
+		return id;
 	}
 
-	public void setReviewId(int reviewId) {
-		this.reviewId = reviewId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public User getUser() {
@@ -99,7 +99,7 @@ public class Review {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movie, ratingReview, reviewId, reviewText, reviewTitle, sentAt, user);
+		return Objects.hash(movie, ratingReview, id, reviewText, reviewTitle, sentAt, user);
 	}
 
 	@Override
@@ -111,14 +111,14 @@ public class Review {
 		if (getClass() != obj.getClass())
 			return false;
 		Review other = (Review) obj;
-		return Objects.equals(movie, other.movie) && ratingReview == other.ratingReview && reviewId == other.reviewId
+		return Objects.equals(movie, other.movie) && ratingReview == other.ratingReview && id == other.id
 				&& Objects.equals(reviewText, other.reviewText) && Objects.equals(reviewTitle, other.reviewTitle)
 				&& Objects.equals(sentAt, other.sentAt) && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", user=" + user + ", movie=" + movie + ", reviewTitle=" + reviewTitle
+		return "Review [id=" + id + ", user=" + user + ", movie=" + movie + ", reviewTitle=" + reviewTitle
 				+ ", reviewText=" + reviewText + ", ratingReview=" + ratingReview + ", sentAt=" + sentAt + "]";
 	}
 	

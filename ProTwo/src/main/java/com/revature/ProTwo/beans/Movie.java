@@ -13,7 +13,7 @@ public class Movie {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long movieId;
+	private int id;
 	
 	private String movieName;
 	
@@ -28,7 +28,7 @@ public class Movie {
 	
 	public Movie() {
 
-		movieId = 1L;
+		id = 1;
 		movieName = "";
 		year = 0;
 		description = "";
@@ -37,12 +37,12 @@ public class Movie {
 		
 	}
 
-	public long getMovieId() {
-		return movieId;
+	public long getId() {
+		return id;
 	}
 
-	public void setMovieId(long movieId) {
-		this.movieId = movieId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getMovieName() {
@@ -87,7 +87,7 @@ public class Movie {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, genre, movieId, movieName, movieRating, year);
+		return Objects.hash(description, genre, id, movieName, movieRating, year);
 	}
 
 	@Override
@@ -100,13 +100,13 @@ public class Movie {
 			return false;
 		Movie other = (Movie) obj;
 		return Objects.equals(description, other.description) && Objects.equals(genre, other.genre)
-				&& movieId == other.movieId && Objects.equals(movieName, other.movieName)
+				&& id == other.id && Objects.equals(movieName, other.movieName)
 				&& Objects.equals(movieRating, other.movieRating) && year == other.year;
 	}
 
 	@Override
 	public String toString() {
-		return "Movie [movieId=" + movieId + ", movieName=" + movieName + ", year=" + year + ", description="
+		return "Movie [id=" + id + ", movieName=" + movieName + ", year=" + year + ", description="
 				+ description + ", movieRating=" + movieRating + ", genre=" + genre + "]";
 	}
 	
