@@ -49,7 +49,7 @@ public class UserController {
 	@PostMapping(path = "/auth")
 	public ResponseEntity<String> logIn(@RequestBody Map<String, String> credentials) {
 		String username = credentials.get("username");
-		String password = credentials.get("password");
+		String password = credentials.get("passwd");
 
 		try {
 			User user = userServ.logIn(username, password);
