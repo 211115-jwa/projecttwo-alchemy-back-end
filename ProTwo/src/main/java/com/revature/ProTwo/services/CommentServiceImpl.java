@@ -1,5 +1,7 @@
 package com.revature.ProTwo.services;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,7 +39,16 @@ public class CommentServiceImpl implements CommentService{
 		}
 		return null;
 	}
-
+	@Override
+public Set<UserComment> viewAllCommentsByUser(User user){
+		return cmmtRepo.findAllByUserId(user.getId());
+	
+}
+	@Override
+	public Set<UserComment> viewAllCommentsByReview(Review review){
+			return cmmtRepo.findAllByReviewId(review.getId());
+		
+	}
 	@Override
 	public UserComment delete(UserComment userCmm) {
 		cmmtRepo.delete(userCmm);
