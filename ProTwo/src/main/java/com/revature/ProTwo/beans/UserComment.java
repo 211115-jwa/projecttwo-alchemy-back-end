@@ -17,7 +17,7 @@ public class UserComment {
 	private int id;
 	
 	private String CommentText;
-	private LocalDateTime sentAt;
+	private String sentAt;
 	
 	@ManyToOne
 	@JoinColumn(name="review_id")
@@ -77,12 +77,12 @@ public class UserComment {
 	}
 
 
-	public LocalDateTime getSentAt() {
+	public String getSentAt() {
 		return sentAt;
 	}
 
 
-	public void setSentAt(LocalDateTime sentAt) {
+	public void setSentAt(String sentAt) {
 		this.sentAt = sentAt;
 	}
 

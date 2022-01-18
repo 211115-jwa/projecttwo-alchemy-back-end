@@ -23,7 +23,7 @@ import com.revature.ProTwo.exceptions.CommentNotFoundException;
 import com.revature.ProTwo.services.CommentService;
 
 @RestController
-@RequestMapping(path = "/Comment")
+@RequestMapping(path = "/comment")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserCommentController {
 
@@ -34,7 +34,7 @@ public class UserCommentController {
 		UserCommentController.cmmServ=cmmServ;
 	}
 
-	// POST to /userComment, 
+	// POST to /comment, 
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody UserComment newUserCmm) {
 		
@@ -55,7 +55,7 @@ public class UserCommentController {
 	
 	
 
-	// POST to /Comment/delete, 
+	// POST to /comment/delete, 
 	@PostMapping(path="/delete")
 	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm) 
 			throws CommentNotFoundException {

@@ -18,7 +18,7 @@ public class Review {
 	private String reviewTitle;
 	private String reviewText;
 	private int ratingReview;
-	private LocalDateTime sentAt;
+	private String sentAt;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -89,11 +89,11 @@ public class Review {
 		this.ratingReview = ratingReview;
 	}
 
-	public LocalDateTime getSentAt() {
+	public String getSentAt() {
 		return sentAt;
 	}
 
-	public void setSentAt(LocalDateTime sentAt) {
+	public void setSentAt(String sentAt) {
 		this.sentAt = sentAt;
 	}
 
