@@ -53,7 +53,7 @@ public class UserController {
 
 		try {
 			User user = userServ.logIn(username, password);
-			String token = Integer.toString(user.getId());
+			String token = Long.toString(user.getRank().getId());
 			return ResponseEntity.ok(token);
 		} catch (IncorrectCredentialsException e) {
 			return ResponseEntity.notFound().build();
