@@ -19,7 +19,7 @@ import com.revature.ProTwo.exceptions.UsernameAlreadyExistsException;
 @Service
 public class CommentServiceImpl implements CommentService{
 
-	
+
 	private UserCommentRepository cmmtRepo;
 	// constructor injection
 	@Autowired
@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public UserComment create(UserComment userCmm) throws CommentNotFoundException {
-		
+
 		int newCmm = cmmtRepo.save(userCmm).getId();
 		if (newCmm > 0) {
 			userCmm.setId(newCmm);
@@ -39,15 +39,16 @@ public class CommentServiceImpl implements CommentService{
 		}
 		return null;
 	}
-	@Override
-public Set<UserComment> viewAllCommentsByUser(User user){
-		return cmmtRepo.findAllByUserId(user.getId());
 	
-}
+	@Override
+	public Set<UserComment> viewAllCommentsByUser(User user){
+		return cmmtRepo.findAllByUserId(user.getId());
+
+	}
 	@Override
 	public Set<UserComment> viewAllCommentsByReview(Review review){
-			return cmmtRepo.findAllByReviewId(review.getId());
-		
+		return cmmtRepo.findAllByReviewId(review.getId());
+
 	}
 	@Override
 	public UserComment delete(UserComment userCmm) {
