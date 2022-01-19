@@ -59,8 +59,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public Set<Movie> getMovieByGenre(String genre) {
-		// TODO Auto-generated method stub
-		return null;
+		return movieRepo.findByGenre(genre);
 	}
 
 	@Override
@@ -71,8 +70,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public Movie getMovieByName(String name) {
-		// return movieRepo.findByMovieNameContainingIgnoreCase(name).get
-		return null;
+		return movieRepo.findByMovieNameContainingIgnoreCase(name);
 	}
 
 }
