@@ -37,7 +37,7 @@ public class Movie {
 		
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

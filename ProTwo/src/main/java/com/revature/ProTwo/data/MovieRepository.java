@@ -10,7 +10,7 @@ import com.revature.ProTwo.beans.Movie;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer>{
 	public Set<Movie> findByMovieNameContainingIgnoreCase(String movieName);
-	public Set<Movie> findByYear(int year);
+	public Set<Movie> findByYear(String year);
 	public Set<Movie> findByGenre(String genre);
 }
 
