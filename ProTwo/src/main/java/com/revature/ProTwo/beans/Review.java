@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -29,8 +30,8 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
-	@ManyToOne(cascade = CascadeType.ALL)// reviews work with this, but creates movies??
-	@JoinColumn(name="movie_id")// it will work for comments too, need to check table settings
+	@ManyToOne
+	@JoinColumn(name="movie_id")
 	private Movie movie;
 	
 	public Review() {
@@ -42,9 +43,11 @@ public class Review {
 		reviewText = "";
 		ratingReview = 0;
 		sentAt = LocalDateTime.now();
-		
-		
-		
+	}
+	
+	public Review(int id) {////added for fix stackoverflow
+		super();
+		this.id = id;
 	}
 
 	public int getId() {

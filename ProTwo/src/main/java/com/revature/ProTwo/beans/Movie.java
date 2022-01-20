@@ -36,6 +36,16 @@ public class Movie {
 		genre = "";
 		
 	}
+	
+	public Movie(int id) {
+		super();
+		this.id = id;
+	}
+	public Movie(String name) {//?
+		super();
+		this.movieName = name;
+	}
+	
 
 	public int getId() {
 		return id;

@@ -38,6 +38,15 @@ public class User {
 		rank= new UserRank();
 	}
 
+	public User(int id) {
+		super();
+		this.id = id;
+	}
+	public User(String username) {//?
+		super();
+		this.username = username;
+	}
+	
 	public int getId() {
 		return id;
 	}
