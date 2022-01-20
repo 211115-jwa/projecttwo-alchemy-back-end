@@ -45,7 +45,7 @@ public class Review {
 		sentAt = LocalDateTime.now();
 	}
 	
-	public Review(int id) {////added for fix stackoverflow
+	public Review(int id) {
 		super();
 		this.id = id;
 	}
