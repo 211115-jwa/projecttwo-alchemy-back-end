@@ -69,6 +69,26 @@ public class MovieController {
 	@PutMapping(path="/{movieId}")
 	public ResponseEntity<Movie> updateMovie(@RequestBody Movie movieToEdit,
 			@PathVariable int movieId) {
+		try {
+			Movie movie = movieServ.getMovieById(movieId);
+			if (movieToEdit != null) {
+				movie = movieToEdit;
+				movie.setId(movieId);
+				movie = movieServ.updateMovie(movie);
+				if (movie != null)
+					return ResponseEntity.ok(movie);
+				else
+					return ResponseEntity.notFound().build();
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			}
+		}
+		catch (MovieNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	/*		
+		}
 		if (movieToEdit != null && movieToEdit.getId() == movieId) {
 			movieToEdit = movieServ.updateMovie(movieToEdit);
 			if (movieToEdit != null)
@@ -77,7 +97,7 @@ public class MovieController {
 				return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
+		}*/
 	}
 
 	// GET to /movie/search?name=

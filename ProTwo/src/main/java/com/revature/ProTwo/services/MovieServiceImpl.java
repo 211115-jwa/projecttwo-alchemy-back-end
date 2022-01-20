@@ -4,6 +4,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ProTwo.beans.Movie;
 import com.revature.ProTwo.data.MovieRepository;
@@ -48,6 +50,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Movie updateMovie(Movie movie) {
 		
 		 if (movieRepo.existsById(movie.getId())) {
