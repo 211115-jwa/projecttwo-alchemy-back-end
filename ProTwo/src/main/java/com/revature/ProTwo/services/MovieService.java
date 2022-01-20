@@ -13,5 +13,5 @@ public interface MovieService {
 	public Movie updateMovie(Movie movie);
 	public Set<Movie> getMovieByGenre(String genre);
 	public Set<Movie> getByYear(String year);
-	public Movie getMovieByName(String name);
+	public Set<Movie> getMovieByName(String name);
 }

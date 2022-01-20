@@ -70,7 +70,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	public Movie getMovieByName(String name) {
+	public Set<Movie> getMovieByName(String name) {
 		return movieRepo.findByMovieNameContainingIgnoreCase(name);
 	}
 

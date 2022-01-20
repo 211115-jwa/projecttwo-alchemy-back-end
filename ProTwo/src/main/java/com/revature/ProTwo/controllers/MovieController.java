@@ -93,8 +93,8 @@ public class MovieController {
 
 	// GET to /movies/{movieName}
 	@GetMapping(path="/{movieName}")
-	public ResponseEntity<Movie> getMovieByName(@PathVariable String name) throws MovieNotFoundException {
-		Movie movie = movieServ.getMovieByName(name);
+	public ResponseEntity<Set<Movie>> getMovieByName(@PathVariable String name) throws MovieNotFoundException {
+		Set<Movie> movie = movieServ.getMovieByName(name);
 		if (movie != null)
 			return ResponseEntity.ok(movie);
 		else
