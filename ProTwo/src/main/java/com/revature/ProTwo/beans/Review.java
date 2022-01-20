@@ -2,40 +2,46 @@ package com.revature.ProTwo.beans;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Review {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String reviewTitle;
 	private String reviewText;
+	@Column(name="review_rating")
 	private int ratingReview;
-	private String sentAt;
+	private LocalDateTime sentAt;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
-	@ManyToOne
-	@JoinColumn(name="movie_id")
+	@ManyToOne(cascade = CascadeType.ALL)// reviews work with this, but creates movies??
+	@JoinColumn(name="movie_id")// it will work for comments too, need to check table settings
 	private Movie movie;
 	
 	public Review() {
 
-		id = 1;
+		id = 0;
 		user = new User();
-		movie = new Movie();
+		movie =null;
 		reviewTitle = "";
 		reviewText = "";
 		ratingReview = 0;
-		sentAt = null;
+		sentAt = LocalDateTime.now();
 		
 		
 		
@@ -89,11 +95,11 @@ public class Review {
 		this.ratingReview = ratingReview;
 	}
 
-	public String getSentAt() {
+	public LocalDateTime getSentAt() {
 		return sentAt;
 	}
 
-	public void setSentAt(String sentAt) {
+	public void setSentAt(LocalDateTime sentAt) {
 		this.sentAt = sentAt;
 	}
 

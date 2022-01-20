@@ -1,5 +1,6 @@
 package com.revature.ProTwo.services;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public UserComment create(UserComment userCmm) throws CommentNotFoundException {
-
+		
+		userCmm.setSentAt(LocalDateTime.now());
 		int newCmm = cmmtRepo.save(userCmm).getId();
 		if (newCmm > 0) {
 			userCmm.setId(newCmm);

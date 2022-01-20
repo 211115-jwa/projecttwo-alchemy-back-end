@@ -33,8 +33,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	
 	@Override
-	public Set<Review> getAllReviewsForMovie(Movie movie) {
-		return revRepo.findByMovieOrderBySentAtDesc(movie);
+	public Set<Review> getAllReviewsForMovie(int movieId) {
+		return revRepo.findByMovieOrderBySentAtDesc(movieId);
 	}
 
 	@Override
