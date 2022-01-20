@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ProTwo.beans.Movie;
@@ -37,19 +38,7 @@ public class MovieController {
 	public MovieController(MovieService movieServ) {
 		MovieController.movieServ=movieServ;
 	}
-	@PostMapping(path="/{movie}")
-	public ResponseEntity<Void> addMovie(@RequestBody Movie movie){
-		if (movie !=null) {
-			try {
-			movieServ.create(movie);
-			}catch (Exception e) {
-				
-			}
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	}
-
+	
 	// POST to /movie, 
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
@@ -91,9 +80,9 @@ public class MovieController {
 		}
 	}
 
-	// GET to /movies/{movieName}
-	@GetMapping(path="/{movieName}")
-	public ResponseEntity<Set<Movie>> getMovieByName(@PathVariable String name) throws MovieNotFoundException {
+	// GET to /movie/search?name=
+	@GetMapping(path="/name_search")
+	public ResponseEntity<Set<Movie>> getMovieByName(@RequestParam String name) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getMovieByName(name);
 		if (movie != null)
 			return ResponseEntity.ok(movie);
@@ -102,9 +91,9 @@ public class MovieController {
 	}
 
 
-	// GET to /movies/{movieGenre}
-	@GetMapping(path="/{movieGenre}")
-	public ResponseEntity<Set<Movie>> getMovieByGenre(@PathVariable String genre) throws MovieNotFoundException {
+	// GET to /movie/search?genre=
+	@GetMapping(path="/genre_search")
+	public ResponseEntity<Set<Movie>> getMovieByGenre(@RequestParam String genre) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getMovieByGenre(genre);
 		if (movie != null)
 			return ResponseEntity.ok(movie);
@@ -113,9 +102,9 @@ public class MovieController {
 	}
 
 
-	// GET to /movies/{movieYear}
-	@GetMapping(path="/{movieYear}")
-	public ResponseEntity<Set<Movie>> getMovieByYear(@PathVariable String year) throws MovieNotFoundException {
+	// GET to /movie/search?year=
+	@GetMapping(path="/year_search")
+	public ResponseEntity<Set<Movie>> getMovieByYear(@RequestParam String year) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getByYear(year);
 		if (movie != null)
 			return ResponseEntity.ok(movie);

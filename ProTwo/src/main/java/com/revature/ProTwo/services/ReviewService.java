@@ -20,4 +20,6 @@ public interface ReviewService {
 	//Like a review
 	//PUT to /movie/review/{review_id}
 	public void likeReview(ReviewLikes newLike);
+	public Review getReviewById(int review_id);
+	
 }

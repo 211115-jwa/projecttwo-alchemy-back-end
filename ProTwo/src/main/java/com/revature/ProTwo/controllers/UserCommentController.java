@@ -23,6 +23,7 @@ import com.revature.ProTwo.beans.User;
 import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.exceptions.CommentNotFoundException;
 import com.revature.ProTwo.services.CommentService;
+import com.revature.ProTwo.services.ReviewService;
 
 @RestController
 @RequestMapping(path = "/comment")
@@ -30,10 +31,12 @@ import com.revature.ProTwo.services.CommentService;
 public class UserCommentController {
 
 	private static CommentService cmmServ;
+	private static ReviewService revServ;
 
 	@Autowired
-	public UserCommentController(CommentService cmmServ) {
+	public UserCommentController(CommentService cmmServ, ReviewService revServ) {
 		UserCommentController.cmmServ = cmmServ;
+		UserCommentController.revServ = revServ;
 	}
 
 	// POST to /comment,
@@ -69,9 +72,9 @@ public class UserCommentController {
 	}
 
 	// Get by review
-	@GetMapping(path = "/{review}")
-	public ResponseEntity<Set<UserComment>> getReviewComments(@RequestBody Review review) {
-		Set<UserComment> cmnt = cmmServ.viewAllCommentsByReview(review);
+	@GetMapping(path = "/review/{review_id}")
+	public ResponseEntity<Set<UserComment>> getReviewComments(@PathVariable int reviewId) {
+		Set<UserComment> cmnt = cmmServ.viewAllCommentsByReview(revServ.getReviewById(reviewId));
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
 	}
 

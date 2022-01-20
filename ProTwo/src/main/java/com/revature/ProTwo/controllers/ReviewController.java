@@ -22,7 +22,7 @@ import com.revature.ProTwo.beans.ReviewLikes;
 import com.revature.ProTwo.services.ReviewService;
 
 @RestController
-@RequestMapping(path = "/review")
+@RequestMapping(path = "/movie/{movie_id}")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 	private static ReviewService revServ;
@@ -33,15 +33,15 @@ public class ReviewController {
 	}
 	//Get all the reviews for specified movie
 	
-	@GetMapping(path="/{movie_id}")
+	@GetMapping(path="/get_reviews")
 	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
 		Set<Review> allReviewsForMovie = revServ.getAllReviewsForMovie(movieId);
 		return ResponseEntity.ok(allReviewsForMovie);
 	}
 
 	//Post a new review
-	
-	@PostMapping
+	//Post to /movie/{movie_id}/review
+	@PostMapping(path ="/review")
 	public ResponseEntity<Void> postReview(@RequestBody Review newReview){
 		if (newReview !=null) {
 			newReview.setSentAt(LocalDateTime.now());
@@ -52,8 +52,8 @@ public class ReviewController {
 	}
 	
 	//Rate a movie
-	//PUT to /movie/{movie_id}
-	@PutMapping(path="/rate/{movie_id}")
+	//Post to /movie/{movie_id}/rate
+	@PutMapping(path="/rate")
 	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating) {
 		if (newRating !=null) {
 			revServ.rateMovie(newRating);
@@ -63,8 +63,8 @@ public class ReviewController {
 	}
 
 	//Like a review
-	//PUT to /movie/review/{review_id}
-	@PutMapping(path="/{review_id}")
+	//PUT to /movie/{movie_id}/review/{review_id}
+	@PutMapping(path="/review/{review_id}")
 	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike) {
 		if (newLike !=null) {
 			revServ.likeReview(newLike);

@@ -54,5 +54,8 @@ public class ReviewServiceImpl implements ReviewService {
 		likesRepo.save(newLike);
 		
 	}
-
+	public Review getReviewById(int review_id) {
+		return revRepo.findById(review_id).get();
+	}
+	
 }
