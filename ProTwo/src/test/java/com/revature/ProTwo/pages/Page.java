@@ -91,6 +91,19 @@ public class Page {
 		
 		saveBtn.click();
 	}
+
+	
+	@FindBy(id="userId") // This can change,       Look at front end code to fill it up correctly @FindBy(id="")
+	WebElement userId;
+	@FindBy(id="movieId")	// This can change
+	WebElement movieId;
+	@FindBy(id="reviewBtn")	// This can change
+	WebElement reviewBtn;
+	
+	public void reviewOnMovie(int idUser, int idMovie, String text, String title, int k) {
+		
+		
+	}
 	
 	
 }

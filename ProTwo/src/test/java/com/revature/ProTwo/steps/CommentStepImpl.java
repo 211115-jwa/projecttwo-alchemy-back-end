@@ -13,8 +13,8 @@ public class CommentStepImpl {
 	private WebDriver driver;
 	private Page page;
 	
-	@Given("the user is on the page of a movie")
-	public void the_user_is_on_the_page_of_a_movie() {
+	@Given("the user is on the page of a review")
+	public void the_user_is_on_the_page_of_a_review() {
 		
 		driver.get("http://localhost:8080");
 	}

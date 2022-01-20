@@ -32,6 +32,7 @@ import com.revature.ProTwo.services.MovieService;
 @RequestMapping(path="/movie")
 @CrossOrigin(origins="http://localhost:4200")
 public class MovieController {
+	
 	private static MovieService movieServ;
 
 	@Autowired
@@ -39,6 +40,22 @@ public class MovieController {
 		MovieController.movieServ=movieServ;
 	}
 	
+<<<<<<< Updated upstream
+=======
+	@PostMapping(path="/{movie}")
+	public ResponseEntity<Void> addMovie(@RequestBody Movie movie){
+		if (movie !=null) {
+			try {
+			movieServ.create(movie);
+			}catch (Exception e) {
+				
+			}
+			return ResponseEntity.status(HttpStatus.CREATED).build();
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
+
+>>>>>>> Stashed changes
 	// POST to /movie, 
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
