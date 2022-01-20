@@ -1,5 +1,6 @@
 package com.revature.ProTwo.controllers;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ import com.revature.ProTwo.beans.ReviewLikes;
 import com.revature.ProTwo.services.ReviewService;
 
 @RestController
-@RequestMapping(path = "/movie")
+@RequestMapping(path = "/review")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 	private static ReviewService revServ;
@@ -30,18 +32,19 @@ public class ReviewController {
 		ReviewController.revServ=revServ;
 	}
 	//Get all the reviews for specified movie
-	//GET to /movie/{movie_id}
+	
 	@GetMapping(path="/{movie_id}")
-	public ResponseEntity<Set<Review>> getReviewsForMovie(@RequestBody Movie movie) {
-		Set<Review> allReviewsForMovie = revServ.getAllReviewsForMovie(movie);
+	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
+		Set<Review> allReviewsForMovie = revServ.getAllReviewsForMovie(movieId);
 		return ResponseEntity.ok(allReviewsForMovie);
 	}
 
 	//Post a new review
-	//POST to /movie/{movie_id}
-	@PostMapping(path="/{movie_id}")
+	
+	@PostMapping
 	public ResponseEntity<Void> postReview(@RequestBody Review newReview){
 		if (newReview !=null) {
+			newReview.setSentAt(LocalDateTime.now());
 			revServ.postNewReview(newReview);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
@@ -50,7 +53,7 @@ public class ReviewController {
 	
 	//Rate a movie
 	//PUT to /movie/{movie_id}
-	@PutMapping(path="/{movie_id}")
+	@PutMapping(path="/rate/{movie_id}")
 	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating) {
 		if (newRating !=null) {
 			revServ.rateMovie(newRating);
@@ -61,7 +64,7 @@ public class ReviewController {
 
 	//Like a review
 	//PUT to /movie/review/{review_id}
-	@PutMapping(path="/review/{review_id}")
+	@PutMapping(path="/{review_id}")
 	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike) {
 		if (newLike !=null) {
 			revServ.likeReview(newLike);

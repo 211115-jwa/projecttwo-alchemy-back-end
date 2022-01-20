@@ -1,5 +1,6 @@
 package com.revature.ProTwo.controllers;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,10 +33,10 @@ public class UserCommentController {
 
 	@Autowired
 	public UserCommentController(CommentService cmmServ) {
-		UserCommentController.cmmServ=cmmServ;
+		UserCommentController.cmmServ = cmmServ;
 	}
 
-	// POST to /comment, 
+	// POST to /comment,
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody UserComment newUserCmm) {
 
@@ -48,19 +49,17 @@ public class UserCommentController {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}// End of POST
-	
+
 	// Get by User
-	@GetMapping(path="/{user}")
-	public ResponseEntity<Set<UserComment>> getUserComments(@RequestBody User user){
-		Set<UserComment> cmnt =  cmmServ.viewAllCommentsByUser(user);
+	@GetMapping(path = "/{user}")
+	public ResponseEntity<Set<UserComment>> getUserComments(@RequestBody User user) {
+		Set<UserComment> cmnt = cmmServ.viewAllCommentsByUser(user);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
 	}
 
-
-
-	// POST to /comment/delete, 
-	@PostMapping(path="/delete")
-	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm) 
+	// POST to /comment/delete,
+	@PostMapping(path = "/delete")
+	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm)
 			throws CommentNotFoundException {
 
 		newUserCmm = cmmServ.delete(newUserCmm);
@@ -68,13 +67,12 @@ public class UserCommentController {
 		newIdMap.remove("generatedId", newUserCmm.getId());
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newIdMap);
 	}
-	
+
 	// Get by review
-	@GetMapping(path="/{review}")
-	public ResponseEntity<Set<UserComment>> getReviewComments(@RequestBody Review review){
-		Set<UserComment> cmnt =  cmmServ.viewAllCommentsByReview(review);
+	@GetMapping(path = "/{review}")
+	public ResponseEntity<Set<UserComment>> getReviewComments(@RequestBody Review review) {
+		Set<UserComment> cmnt = cmmServ.viewAllCommentsByReview(review);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
 	}
-
 
 }

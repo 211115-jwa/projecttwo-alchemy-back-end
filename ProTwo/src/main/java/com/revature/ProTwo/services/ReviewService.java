@@ -10,7 +10,7 @@ import com.revature.ProTwo.beans.ReviewLikes;
 public interface ReviewService {
 	//Get all the reviews
 	//GET to /movie/{movie_id}
-	public Set<Review> getAllReviewsForMovie(Movie movie);
+	public Set<Review> getAllReviewsForMovie(int movieId);
 	//Post a new review
 	//POST to /movie/{movie_id}
 	public Review postNewReview(Review newReview);
