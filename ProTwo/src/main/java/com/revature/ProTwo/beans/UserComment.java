@@ -3,6 +3,7 @@ package com.revature.ProTwo.beans;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +14,11 @@ import javax.persistence.ManyToOne;
 public class UserComment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String CommentText;
-	private String sentAt;
+	private LocalDateTime sentAt;
 	
 	@ManyToOne
 	@JoinColumn(name="review_id")
@@ -32,7 +33,7 @@ public class UserComment {
 		review = new Review();
 		user = new User();
 		CommentText = "";
-		sentAt = null;
+		sentAt = LocalDateTime.now();
 	
 	}
 
@@ -77,12 +78,12 @@ public class UserComment {
 	}
 
 
-	public String getSentAt() {
+	public LocalDateTime getSentAt() {
 		return sentAt;
 	}
 
 
-	public void setSentAt(String sentAt) {
+	public void setSentAt(LocalDateTime sentAt) {
 		this.sentAt = sentAt;
 	}
 

@@ -3,20 +3,21 @@ package com.revature.ProTwo.services;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.ProTwo.beans.Movie;
 import com.revature.ProTwo.data.MovieRepository;
 import com.revature.ProTwo.exceptions.MovieAlreadyExistsException;
 import com.revature.ProTwo.exceptions.MovieNotFoundException;
 
-
+@Service
 public class MovieServiceImpl implements MovieService{
 	
 	private MovieRepository movieRepo;
 
 	// constructor injection
 	@Autowired
-	public MovieServiceImpl(MovieRepository movieRepo) {
+	public MovieServiceImpl(MovieRepository movieRepo)  {
 		
 		this.movieRepo = movieRepo;
 	}

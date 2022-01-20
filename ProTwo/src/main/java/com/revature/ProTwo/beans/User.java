@@ -2,6 +2,7 @@ package com.revature.ProTwo.beans;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,6 @@ public class User {
 	
 	@ManyToOne
 	@JoinColumn(name="rank_id") // name of the fk
-	//@JoinTable(name = "user_rank",
-	//joinColumns = @JoinColumn(name="user_id"))
 	private UserRank rank;
 
 	public User() {
@@ -39,6 +38,15 @@ public class User {
 		rank= new UserRank();
 	}
 
+	public User(int id) {
+		super();
+		this.id = id;
+	}
+	public User(String username) {//?
+		super();
+		this.username = username;
+	}
+	
 	public int getId() {
 		return id;
 	}
