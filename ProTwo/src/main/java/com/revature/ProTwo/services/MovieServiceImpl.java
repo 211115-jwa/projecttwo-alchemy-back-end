@@ -8,7 +8,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.ProTwo.beans.Movie;
+import com.revature.ProTwo.beans.MovieRating;
+import com.revature.ProTwo.beans.Review;
+import com.revature.ProTwo.data.MovieRatingRepository;
 import com.revature.ProTwo.data.MovieRepository;
+import com.revature.ProTwo.data.ReviewRepository;
 import com.revature.ProTwo.exceptions.MovieAlreadyExistsException;
 import com.revature.ProTwo.exceptions.MovieNotFoundException;
 
@@ -16,12 +20,14 @@ import com.revature.ProTwo.exceptions.MovieNotFoundException;
 public class MovieServiceImpl implements MovieService{
 	
 	private MovieRepository movieRepo;
-
+	private ReviewRepository revRepo;
+	private MovieRatingRepository ratingRepo;
 	// constructor injection
 	@Autowired
-	public MovieServiceImpl(MovieRepository movieRepo)  {
-		
+	public MovieServiceImpl(MovieRepository movieRepo, ReviewRepository revRepo, MovieRatingRepository ratingRepo)  {
 		this.movieRepo = movieRepo;
+		this.revRepo = revRepo;
+		this.ratingRepo = ratingRepo;
 	}
 
 	@Override
@@ -68,7 +74,6 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public Set<Movie> getByYear(String year) {
-		
 		return movieRepo.findByYear(year);
 	}
 
@@ -76,5 +81,14 @@ public class MovieServiceImpl implements MovieService{
 	public Set<Movie> getMovieByName(String name) {
 		return movieRepo.findByMovieNameContainingIgnoreCase(name);
 	}
-
+	
+	@Override
+	public Set<Review> getAllReviewsForMovie(int movieId) {
+		return revRepo.findByMovieOrderBySentAtDesc(movieId);
+	}
+	
+	@Override
+	public void rateMovie(MovieRating newRating) {
+		ratingRepo.save(newRating);	
+	}
 }

@@ -6,20 +6,11 @@ import com.revature.ProTwo.beans.Movie;
 import com.revature.ProTwo.beans.MovieRating;
 import com.revature.ProTwo.beans.Review;
 import com.revature.ProTwo.beans.ReviewLikes;
+import com.revature.ProTwo.beans.UserComment;
 
 public interface ReviewService {
-	//Get all the reviews
-	//GET to /movie/{movie_id}
-	public Set<Review> getAllReviewsForMovie(int movieId);
-	//Post a new review
-	//POST to /movie/{movie_id}
 	public Review postNewReview(Review newReview);
-	//Rate a movie
-	//PUT to /movie/{movie_id}
-	public void rateMovie(MovieRating newRating);
-	//Like a review
-	//PUT to /movie/review/{review_id}
 	public void likeReview(ReviewLikes newLike);
 	public Review getReviewById(int review_id);
-	
+	public Set<UserComment> viewAllCommentsByReview(Review review);
 }

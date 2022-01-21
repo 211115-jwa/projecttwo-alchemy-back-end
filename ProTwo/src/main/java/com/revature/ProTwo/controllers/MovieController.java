@@ -20,26 +20,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.ProTwo.beans.Movie;
-
+import com.revature.ProTwo.beans.MovieRating;
+import com.revature.ProTwo.beans.Review;
 import com.revature.ProTwo.exceptions.MovieAlreadyExistsException;
 import com.revature.ProTwo.exceptions.MovieNotFoundException;
 
 import com.revature.ProTwo.services.MovieService;
 
-
-
 @RestController
-@RequestMapping(path="/movie")
-@CrossOrigin(origins="http://localhost:4200")
+@RequestMapping(path = "/movie")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
 	private static MovieService movieServ;
 
 	@Autowired
 	public MovieController(MovieService movieServ) {
-		MovieController.movieServ=movieServ;
+		MovieController.movieServ = movieServ;
 	}
-	
-	// POST to /movie, 
+
+	// POST to /movie
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
 
@@ -51,11 +50,10 @@ public class MovieController {
 		} catch (MovieAlreadyExistsException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
-	}// End of POST
+	}
 
-
-	// GET to /users/{movieId}
-	@GetMapping(path="/{movieId}")
+	// GET to /movie/{movieId}
+	@GetMapping(path = "/{movieId}")
 	public ResponseEntity<Movie> getMovieById(@PathVariable int movieId) throws MovieNotFoundException {
 		Movie movie = movieServ.getMovieById(movieId);
 		if (movie != null)
@@ -64,11 +62,9 @@ public class MovieController {
 			return ResponseEntity.notFound().build();
 	}
 
-
 	// PUT to /movie/{movieId}
-	@PutMapping(path="/{movieId}")
-	public ResponseEntity<Movie> updateMovie(@RequestBody Movie movieToEdit,
-			@PathVariable int movieId) {
+	@PutMapping(path = "/{movieId}")
+	public ResponseEntity<Movie> updateMovie(@RequestBody Movie movieToEdit, @PathVariable int movieId) {
 		try {
 			Movie movie = movieServ.getMovieById(movieId);
 			if (movieToEdit != null) {
@@ -79,29 +75,23 @@ public class MovieController {
 					return ResponseEntity.ok(movie);
 				else
 					return ResponseEntity.notFound().build();
-			}
-			else {
+			} else {
 				return ResponseEntity.status(HttpStatus.CONFLICT).build();
 			}
-		}
-		catch (MovieNotFoundException e) {
+		} catch (MovieNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
-	/*		
-		}
-		if (movieToEdit != null && movieToEdit.getId() == movieId) {
-			movieToEdit = movieServ.updateMovie(movieToEdit);
-			if (movieToEdit != null)
-				return ResponseEntity.ok(movieToEdit);
-			else
-				return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}*/
+		/*
+		 * } if (movieToEdit != null && movieToEdit.getId() == movieId) { movieToEdit =
+		 * movieServ.updateMovie(movieToEdit); if (movieToEdit != null) return
+		 * ResponseEntity.ok(movieToEdit); else return
+		 * ResponseEntity.notFound().build(); } else { return
+		 * ResponseEntity.status(HttpStatus.CONFLICT).build(); }
+		 */
 	}
 
-	// GET to /movie/search?name=
-	@GetMapping(path="/name_search")
+	// GET to /movie/name_search?name=
+	@GetMapping(path = "/name_search")
 	public ResponseEntity<Set<Movie>> getMovieByName(@RequestParam String name) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getMovieByName(name);
 		if (movie != null)
@@ -110,9 +100,8 @@ public class MovieController {
 			return ResponseEntity.notFound().build();
 	}
 
-
-	// GET to /movie/search?genre=
-	@GetMapping(path="/genre_search")
+	// GET to /movie/genre_search?genre=
+	@GetMapping(path = "/genre_search")
 	public ResponseEntity<Set<Movie>> getMovieByGenre(@RequestParam String genre) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getMovieByGenre(genre);
 		if (movie != null)
@@ -121,9 +110,8 @@ public class MovieController {
 			return ResponseEntity.notFound().build();
 	}
 
-
-	// GET to /movie/search?year=
-	@GetMapping(path="/year_search")
+	// GET to /movie/year_search?year=
+	@GetMapping(path = "/year_search")
 	public ResponseEntity<Set<Movie>> getMovieByYear(@RequestParam String year) throws MovieNotFoundException {
 		Set<Movie> movie = movieServ.getByYear(year);
 		if (movie != null)
@@ -131,8 +119,22 @@ public class MovieController {
 		else
 			return ResponseEntity.notFound().build();
 	}
-	 
+
+	// Get to /movie/{movie_id}/get_reviews
+	@GetMapping(path = "/{movie_id}/get_reviews")
+	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
+		Set<Review> allReviewsForMovie = movieServ.getAllReviewsForMovie(movieId);
+		return ResponseEntity.ok(allReviewsForMovie);
+	}
+
+	// Post to /movie/{movie_id}/rate
+	@PutMapping(path = "/{movie_id}/rate")
+	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating,
+			@PathVariable int movieId) {
+		if (newRating != null) {
+			movieServ.rateMovie(newRating);
+			return ResponseEntity.status(HttpStatus.CREATED).build();
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	}
 }
-
-
-

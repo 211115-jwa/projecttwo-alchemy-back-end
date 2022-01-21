@@ -1,8 +1,6 @@
 package com.revature.ProTwo.controllers;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,12 +11,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.ProTwo.beans.Review;
 import com.revature.ProTwo.beans.User;
 import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.exceptions.CommentNotFoundException;
@@ -31,15 +27,12 @@ import com.revature.ProTwo.services.ReviewService;
 public class UserCommentController {
 
 	private static CommentService cmmServ;
-	private static ReviewService revServ;
-
 	@Autowired
 	public UserCommentController(CommentService cmmServ, ReviewService revServ) {
 		UserCommentController.cmmServ = cmmServ;
-		UserCommentController.revServ = revServ;
 	}
 
-	// POST to /comment,
+	// POST to /comment
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody UserComment newUserCmm) {
 
@@ -51,18 +44,18 @@ public class UserCommentController {
 		} catch (CommentNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
-	}// End of POST
+	}
 
-	// Get by User
-	@GetMapping(path = "/{user}")
-	public ResponseEntity<Set<UserComment>> getUserComments(@RequestBody User user) {
+	// GET to /comment/user/{user_id}
+	@GetMapping(path = "/user/{user_id}")
+	public ResponseEntity<Set<UserComment>> getUserComments(@RequestBody User user, @PathVariable int userId) {
 		Set<UserComment> cmnt = cmmServ.viewAllCommentsByUser(user);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
 	}
 
-	// POST to /comment/delete,
-	@PostMapping(path = "/delete")
-	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm)
+	// POST to /comment/{comment_id}/delete,
+	@PostMapping(path = "{comment_id}/delete")
+	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm, @PathVariable int commentId)
 			throws CommentNotFoundException {
 
 		newUserCmm = cmmServ.delete(newUserCmm);
@@ -70,12 +63,4 @@ public class UserCommentController {
 		newIdMap.remove("generatedId", newUserCmm.getId());
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newIdMap);
 	}
-
-	// Get by review
-	@GetMapping(path = "/review/{review_id}")
-	public ResponseEntity<Set<UserComment>> getReviewComments(@PathVariable int reviewId) {
-		Set<UserComment> cmnt = cmmServ.viewAllCommentsByReview(revServ.getReviewById(reviewId));
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
-	}
-
 }

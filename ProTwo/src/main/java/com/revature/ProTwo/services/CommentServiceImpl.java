@@ -20,12 +20,11 @@ import com.revature.ProTwo.exceptions.UsernameAlreadyExistsException;
 @Service
 public class CommentServiceImpl implements CommentService{
 
-
 	private UserCommentRepository cmmtRepo;
 	// constructor injection
 	@Autowired
-	public CommentServiceImpl(UserCommentRepository userRepo) {
-		this.cmmtRepo = userRepo;
+	public CommentServiceImpl(UserCommentRepository cmmtRepo) {
+		this.cmmtRepo = cmmtRepo;
 	}
 
 	@Override
@@ -45,17 +44,11 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public Set<UserComment> viewAllCommentsByUser(User user){
 		return cmmtRepo.findAllByUserId(user.getId());
-
 	}
-	@Override
-	public Set<UserComment> viewAllCommentsByReview(Review review){
-		return cmmtRepo.findAllByReviewId(review.getId());
-
-	}
+	
 	@Override
 	public UserComment delete(UserComment userCmm) {
 		cmmtRepo.delete(userCmm);
 		return userCmm;
 	}
-
 }
