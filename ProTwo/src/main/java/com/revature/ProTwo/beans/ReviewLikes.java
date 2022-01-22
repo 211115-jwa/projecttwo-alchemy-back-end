@@ -23,6 +23,8 @@ public class ReviewLikes {
 	private ReviewLikesId reviewLikesId;	
 	
 	private boolean liked;
+	
+	public ReviewLikes() {super();}
 
 	public ReviewLikes(ReviewLikesId reviewLikesId, boolean liked) {
 		super();
@@ -37,8 +39,13 @@ public class ReviewLikes {
 	public void setReviewLikesId(ReviewLikesId reviewLikesId) {
 		this.reviewLikesId = reviewLikesId;
 	}
+	public void setReviewLikesId(Long userId, Long reviewId) {
+		ReviewLikesId nl = new ReviewLikesId();
+		nl.setUserId(userId);
+		nl.setReviewId(reviewId);
+	}
 
-	public boolean isLiked() {
+	public boolean getLiked() {
 		return liked;
 	}
 
