@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Embeddable
 public class ReviewLikesId implements Serializable {
@@ -12,17 +15,26 @@ public class ReviewLikesId implements Serializable {
 	//default serialVersionUID
 	private static final long serialVersionUID = 1L;
 
-	//I included the schema but not sure if it is needed
-	@Column(name = "p_user.id")
+	
+	@Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     private Long userId;
-
-    @Column(name = "review.id")
+	
+    @Column(name = "review_id", nullable = false, insertable = false, updatable = false)
     private Long reviewId;
 
+    
+    public ReviewLikesId(){super();}
+    
+    
 	public ReviewLikesId(Long userId, Long reviewId) {
 		super();
 		this.userId = userId;
 		this.reviewId = reviewId;
+	}
+	
+	public void setReviewLikesId(Long userId, Long reviewId) {
+		this.userId = userId;
+		this .reviewId = reviewId;
 	}
 
 	public Long getUserId() {

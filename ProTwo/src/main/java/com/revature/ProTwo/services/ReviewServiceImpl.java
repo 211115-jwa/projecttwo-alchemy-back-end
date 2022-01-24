@@ -9,6 +9,7 @@ import com.revature.ProTwo.beans.Movie;
 import com.revature.ProTwo.beans.MovieRating;
 import com.revature.ProTwo.beans.Review;
 import com.revature.ProTwo.beans.ReviewLikes;
+import com.revature.ProTwo.beans.ReviewLikesId;
 import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.data.MovieRatingRepository;
 import com.revature.ProTwo.data.ReviewLikesRepository;
@@ -42,7 +43,10 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void likeReview(ReviewLikes newLike) {
-		likesRepo.save(newLike);
+		ReviewLikes nl = new ReviewLikes();
+		nl.setReviewLikesId(newLike.getReviewLikesId().getUserId(), newLike.getReviewLikesId().getReviewId());
+		nl.setLiked(newLike.getLiked());
+		likesRepo.save(nl);
 	}
 	
 	@Override
