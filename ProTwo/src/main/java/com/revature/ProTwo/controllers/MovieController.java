@@ -128,7 +128,7 @@ public class MovieController {
 	}
 
 	// Post to /movie/{movie_id}/rate
-	@PutMapping(path = "/{movie_id}/rate")
+	@PutMapping(path = "/{movie_id}/rate")//////??????????????????????
 	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating,
 			@PathVariable int movieId) {
 		if (newRating != null) {
