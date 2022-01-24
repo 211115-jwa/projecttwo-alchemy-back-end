@@ -15,62 +15,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.ProTwo.beans.Movie;
-import com.revature.ProTwo.beans.MovieRating;
 import com.revature.ProTwo.beans.Review;
 import com.revature.ProTwo.beans.ReviewLikes;
+import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.services.ReviewService;
 
 @RestController
-@RequestMapping(path = "/movie/{movie_id}")
+@RequestMapping(path = "/review")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 	private static ReviewService revServ;
 
 	@Autowired
 	public ReviewController(ReviewService revServ) {
-		ReviewController.revServ=revServ;
-	}
-	//Get all the reviews for specified movie
-	
-	@GetMapping(path="/get_reviews")
-	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
-		Set<Review> allReviewsForMovie = revServ.getAllReviewsForMovie(movieId);
-		return ResponseEntity.ok(allReviewsForMovie);
+		ReviewController.revServ = revServ;
 	}
 
-	//Post a new review
-	//Post to /movie/{movie_id}/review
-	@PostMapping(path ="/review")
-	public ResponseEntity<Void> postReview(@RequestBody Review newReview){
-		if (newReview !=null) {
+	// Post to /review
+	@PostMapping
+	public ResponseEntity<Void> postReview(@RequestBody Review newReview) {
+		if (newReview != null) {
 			newReview.setSentAt(LocalDateTime.now());
 			revServ.postNewReview(newReview);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
-	
-	//Rate a movie
-	//Post to /movie/{movie_id}/rate
-	@PutMapping(path="/rate")
-	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating) {
-		if (newRating !=null) {
-			revServ.rateMovie(newRating);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-	}
 
-	//Like a review
-	//PUT to /movie/{movie_id}/review/{review_id}
-	@PutMapping(path="/review/{review_id}")
-	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike) {
-		if (newLike !=null) {
+	// PUT to /review/{review_id}
+	@PutMapping(path = "/{review_id}")
+	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike, @PathVariable int review_id) {
+		if (newLike != null) {
 			revServ.likeReview(newLike);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
-	
+
+	// GET to /review/{review_id}/get_comments
+	@GetMapping(path = "/{review_id}/get_comments")
+	public ResponseEntity<Set<UserComment>> getReviewComments(@PathVariable int reviewId) {
+		Set<UserComment> cmnt = revServ.viewAllCommentsByReview(revServ.getReviewById(reviewId));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
+	}
 }

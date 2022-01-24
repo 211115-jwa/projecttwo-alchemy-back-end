@@ -9,10 +9,7 @@ import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.exceptions.CommentNotFoundException;
 
 public interface CommentService {
-	
 	public UserComment create(UserComment userCmm) throws CommentNotFoundException;
 	public UserComment delete(UserComment userCmm);
 	public Set<UserComment> viewAllCommentsByUser(User user);
-	public Set<UserComment> viewAllCommentsByReview(Review review);
-
 }
