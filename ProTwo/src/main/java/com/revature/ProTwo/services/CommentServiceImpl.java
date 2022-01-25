@@ -51,4 +51,9 @@ public class CommentServiceImpl implements CommentService{
 		cmmtRepo.delete(userCmm);
 		return userCmm;
 	}
+
+	@Override
+	public Set<UserComment> viewAllCommentsByReview(Review review) {
+		return cmmtRepo.findAllByReviewId(review.getId());
+	}
 }

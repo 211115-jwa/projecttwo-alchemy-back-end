@@ -31,6 +31,7 @@ import com.revature.ProTwo.services.MovieService;
 @RequestMapping(path = "/movie")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
+	
 	private static MovieService movieServ;
 
 	@Autowired
@@ -38,7 +39,6 @@ public class MovieController {
 		MovieController.movieServ = movieServ;
 	}
 
-	// POST to /movie
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
 
