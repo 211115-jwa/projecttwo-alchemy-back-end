@@ -16,7 +16,7 @@ public class ReviewStepImpl {
 	@Given("the user is on the page of a movie")
 	public void the_user_is_on_the_page_of_a_movie() {
 	    
-		driver.get("http://localhost:8080");
+		driver.get("http://localhost:4200");
 	}
 
 	@When("the user can enter a review on the input box")
@@ -28,6 +28,6 @@ public class ReviewStepImpl {
 	@Then("review is uploaded on the page of the movie by clicking the Button")
 	public void review_is_uploaded_on_the_page_of_the_movie_by_clicking_the_button() {
 	    
-		
+		page.uploadReviewClick();
 	}
 }

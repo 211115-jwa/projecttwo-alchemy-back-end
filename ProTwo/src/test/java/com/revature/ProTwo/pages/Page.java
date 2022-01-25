@@ -17,9 +17,7 @@ public class Page {
 	@FindBy(id="loginBtn")
 	private WebElement loginBtn;
 
-	
-	@FindBy(id="commentMovie")
-	WebElement cmmtBtn;
+
 
 	public Page(WebDriver driver) {
 		this.driver = driver;
@@ -27,7 +25,7 @@ public class Page {
 	}
 
 	public void navigateTo() {
-		driver.get("http://localhost:8080");
+		driver.get("http://localhost:4200");
 	}
 
 	public void submitLogin(String username, String password) {
@@ -47,11 +45,8 @@ public class Page {
 		return errorMsg.getText();
 	}
 
-	public void commentClick() {
-		
-		cmmtBtn.click();
-	}
 	
+	// This three methods is for Comments
 	@FindBy(id="review_id")
 	WebElement rvwid;
 	@FindBy(id="user_id")
@@ -60,52 +55,101 @@ public class Page {
 	WebElement cmmText;
 	@FindBy(id="postComment")
 	WebElement cmmSub;
-
+	@FindBy(id="commentMovie")
+	WebElement cmmtBtn;
+	
 	public void commentOnReview(int i, int j, String string) {
-		
+
 		rvwid.sendKeys(String.valueOf(i));
 		userid.sendKeys(String.valueOf(j));
 		cmmText.sendKeys(string);
 	}
 
 	public void postComment() {
-		
+
 		cmmSub.click();	
 	}
 
-	
+	public void commentClick() {
+
+		cmmtBtn.click();
+	}
+
+	// This two methods is for Edit Profile
 	@FindBy(id="firstName") // This can change
 	WebElement first;
 	@FindBy(id="lastName")	// This can change
 	WebElement last;
 	@FindBy(id="saveBtn")	// This can change
 	WebElement saveBtn;
-	
+
 	public void editProfile(String fst, String lst) {
-		
+
 		first.sendKeys(fst);
 		last.sendKeys(lst);
 	}
-	
+
 	public void saveEditClick() {
-		
+
 		saveBtn.click();
 	}
 
-	
-	@FindBy(id="userId") // This can change,       Look at front end code to fill it up correctly @FindBy(id="")
-	WebElement userId;
-	@FindBy(id="movieId")	// This can change
-	WebElement movieId;
-	@FindBy(id="reviewBtn")	// This can change
-	WebElement reviewBtn;
-	
-	public void reviewOnMovie(int idUser, int idMovie, String text, String title, int k) {
-		
-		
+
+	// This two methods is for Movie
+	@FindBy(id="name") 
+	WebElement mName;
+	@FindBy(id="year")	
+	WebElement mYear;
+	@FindBy(id="description") 
+	WebElement desc;
+	@FindBy(id="rating")	
+	WebElement rating;
+	@FindBy(id="genre") 
+	WebElement genre;
+	public void searchMovie(String name, String year, String description, String rating, String genre) {
+
+		mName.sendKeys(name);
+		mYear.sendKeys(year);
+		desc.sendKeys(description);
+		this.rating.sendKeys(rating);
+		this.genre.sendKeys(genre);
 	}
-	
-	
+
+	@FindBy(id="searchBar")
+	WebElement srchBar;
+	public void searchBarClick() {
+
+		srchBar.click();
+	}
+
+	// This two method is for Review
+	@FindBy(id="user") 
+	WebElement rUser;
+	@FindBy(id="movie")	
+	WebElement rMovie;
+	@FindBy(id="title") 
+	WebElement rTitle;
+	@FindBy(id="rName")	
+	WebElement movieName;
+	@FindBy(id="rating") 
+	WebElement rRating;
+	public void reviewOnMovie(int user, int movie, String title, String name, int rating) {
+
+		rUser.sendKeys(String.valueOf(user));
+		rMovie.sendKeys(String.valueOf(movie));
+		rTitle.sendKeys(title);
+		movieName.sendKeys(name);
+		rRating.sendKeys(String.valueOf(rating));
+
+	}
+
+	@FindBy(id="uploadReview")
+	WebElement uploadReview;
+	public void uploadReviewClick() {
+		uploadReview.click();
+	}
+
+
 }
 
 

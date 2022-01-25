@@ -25,6 +25,8 @@ public class MovieRating {
 	@Column(name="rating")
 	private int userRating;
 	
+	public MovieRating() {super();}
+	
 	public MovieRating(MovieRatingId movieRatingId, int userRating) {
         this.movieRatingId = movieRatingId;
         this.userRating = userRating;
