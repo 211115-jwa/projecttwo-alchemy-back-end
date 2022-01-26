@@ -25,7 +25,7 @@ public class User {
 	@Column(name="passwd")
 	private String password;
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="rank_id") // name of the fk
 	private UserRank rank;
 
