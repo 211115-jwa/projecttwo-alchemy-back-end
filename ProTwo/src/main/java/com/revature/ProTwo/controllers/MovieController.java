@@ -1,6 +1,7 @@
 package com.revature.ProTwo.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +40,14 @@ public class MovieController {
 		MovieController.movieServ = movieServ;
 	}
 
+	@GetMapping
+	public ResponseEntity<List<Movie>> getMovies() {
+		
+		List<Movie> allMovies = movieServ.viewMovies();
+		return ResponseEntity.ok(allMovies);
+	}
+
+	
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
 

@@ -1,5 +1,6 @@
 package com.revature.ProTwo.services;
 
+import java.util.List;
 import java.util.Set;
 
 import com.revature.ProTwo.beans.Movie;
@@ -20,4 +21,5 @@ public interface MovieService {
 	
 	public void rateMovie(MovieRating newRating);
 	public Set<Review> getAllReviewsForMovie(int movieId);
+	List<Movie> viewMovies();
 }

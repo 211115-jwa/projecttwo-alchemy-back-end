@@ -29,6 +29,7 @@ public class User {
 	@JoinColumn(name="rank_id") // name of the fk
 	private UserRank rank;
 
+	
 	public User() {
 		id = 0;
 		firstName = "first";
