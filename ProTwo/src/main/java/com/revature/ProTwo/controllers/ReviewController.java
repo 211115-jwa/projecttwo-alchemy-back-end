@@ -46,7 +46,7 @@ public class ReviewController {
 	@PostMapping(path = "/like")
 	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike) {
 		if (newLike != null) {
-			
+			System.out.println(newLike);
 			revServ.likeReview(newLike);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}

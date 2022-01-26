@@ -43,10 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void likeReview(ReviewLikes newLike) {
-		ReviewLikes nl = new ReviewLikes();
-		nl.setReviewLikesId(newLike.getReviewLikesId().getUserId(), newLike.getReviewLikesId().getReviewId());
-		nl.setLiked(newLike.getLiked());
-		likesRepo.save(nl);
+		likesRepo.save(newLike);
 	}
 	
 	@Override
