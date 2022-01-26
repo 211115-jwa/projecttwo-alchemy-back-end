@@ -20,6 +20,7 @@ import com.revature.ProTwo.beans.UserComment;
 import com.revature.ProTwo.exceptions.CommentNotFoundException;
 import com.revature.ProTwo.services.CommentService;
 import com.revature.ProTwo.services.ReviewService;
+import com.revature.ProTwo.services.UserService;
 
 @RestController
 @RequestMapping(path = "/comment")
@@ -27,9 +28,11 @@ import com.revature.ProTwo.services.ReviewService;
 public class UserCommentController {
 
 	private static CommentService cmmServ;
+	private static UserService userServ;
 	@Autowired
-	public UserCommentController(CommentService cmmServ, ReviewService revServ) {
+	public UserCommentController(CommentService cmmServ, UserService userServ) {
 		UserCommentController.cmmServ = cmmServ;
+		UserCommentController.userServ = userServ;
 	}
 
 	// POST to /comment
@@ -48,14 +51,15 @@ public class UserCommentController {
 
 	// GET to /comment/user/{user_id}
 	@GetMapping(path = "/user/{user_id}")
-	public ResponseEntity<Set<UserComment>> getUserComments(@RequestBody User user, @PathVariable int userId) {
-		Set<UserComment> cmnt = cmmServ.viewAllCommentsByUser(user);
+	public ResponseEntity<Set<UserComment>> getUserComments(@PathVariable("user_id") int userId) {
+		//System.out.println(userId);
+		Set<UserComment> cmnt = cmmServ.viewAllCommentsByUser(userServ.getUserById(userId));
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
 	}
 
 	// POST to /comment/{comment_id}/delete,
 	@PostMapping(path = "{comment_id}/delete")
-	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm, @PathVariable int commentId)
+	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm, @PathVariable("comment_id") int commentId)
 			throws CommentNotFoundException {
 
 		newUserCmm = cmmServ.delete(newUserCmm);

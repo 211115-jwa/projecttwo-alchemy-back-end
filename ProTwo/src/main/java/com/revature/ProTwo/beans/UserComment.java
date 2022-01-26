@@ -28,16 +28,21 @@ public class UserComment {
 	private User user;
 	
 	public UserComment() {
-
 		id = 1;
 		review = new Review();
 		user = new User();
 		CommentText = "";
 		sentAt = LocalDateTime.now();
-	
 	}
 
-
+	public UserComment(int id, Review review, User user, String commentText, LocalDateTime sentAt) {
+		this.id = id;
+		this.review = review;
+		this.user = user;
+		this.CommentText = commentText;
+		this.sentAt = sentAt;
+	}
+	
 	public int getId() {
 		return id;
 	}
