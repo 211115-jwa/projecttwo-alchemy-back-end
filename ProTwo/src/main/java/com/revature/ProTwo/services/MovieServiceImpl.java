@@ -89,7 +89,7 @@ public List<Movie> viewMovies(){
 	
 	@Override
 	public Set<Review> getAllReviewsForMovie(int movieId) {
-		return revRepo.findByMovieOrderBySentAtDesc(movieId);
+		return revRepo.findByMovieOrderBySentAtDesc(movieRepo.findById(movieId).get());
 	}
 	
 	@Override

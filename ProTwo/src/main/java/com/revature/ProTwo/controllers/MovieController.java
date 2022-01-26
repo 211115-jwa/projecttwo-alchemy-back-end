@@ -131,7 +131,7 @@ public class MovieController {
 
 	// Get to /movie/{movie_id}/get_reviews
 	@GetMapping(path = "/{movie_id}/get_reviews")
-	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
+	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable("movie_id") int movieId) {
 		Set<Review> allReviewsForMovie = movieServ.getAllReviewsForMovie(movieId);
 		return ResponseEntity.ok(allReviewsForMovie);
 	}

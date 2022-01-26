@@ -10,6 +10,6 @@ import com.revature.ProTwo.beans.Review;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
-	public Set<Review> findByMovieOrderBySentAtDesc(int moviId);
+	public Set<Review> findByMovieOrderBySentAtDesc(Movie movie);
 }
 
