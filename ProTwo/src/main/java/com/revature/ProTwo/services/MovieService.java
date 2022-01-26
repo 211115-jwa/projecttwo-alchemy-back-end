@@ -11,7 +11,7 @@ import com.revature.ProTwo.exceptions.MovieNotFoundException;
 public interface MovieService {
 	
 	public Movie create(Movie movie) throws MovieAlreadyExistsException;
-	public Movie delete(Movie movie) throws MovieNotFoundException;
+	public void delete(Movie movie) throws MovieNotFoundException;
 	public Movie updateMovie(Movie movie);
 	
 	public Movie getMovieById(int id) throws MovieNotFoundException;

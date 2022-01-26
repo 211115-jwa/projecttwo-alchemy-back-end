@@ -78,16 +78,6 @@ public class ReviewServiceTest {
 		assertNotEquals(null, newId);
 	}
 
-	@Test
-	public void postNewReviewSomethingWrong() {
-		Review review = new Review();
-
-		when(reviewRepo.save(review)).thenReturn(null);
-		Review newId = reviewServ.postNewReview(review);
-		
-		assertNull(newId);
-	}
-
 	//viewAllCommentsByReview
 
 	@MockBean

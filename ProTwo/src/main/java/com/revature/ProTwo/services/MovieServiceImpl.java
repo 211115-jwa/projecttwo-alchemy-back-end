@@ -44,10 +44,9 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	public Movie delete(Movie movie) throws MovieNotFoundException {
+	public void delete(Movie movie) throws MovieNotFoundException {
 		
 		movieRepo.delete(movie);
-		return movie;
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.SUPPORTS)
 	public Movie updateMovie(Movie movie) {
 		
 		 if (movieRepo.existsById(movie.getId())) {

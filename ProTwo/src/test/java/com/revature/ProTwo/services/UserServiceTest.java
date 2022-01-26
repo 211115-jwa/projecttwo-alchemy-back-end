@@ -118,16 +118,7 @@ public class UserServiceTest {
 		assertNotNull(updatedUser);
 	}
 
-	@Test
-	public void updateSomethingWrong() {
-		User mockUser = new User();
-		mockUser.setId(1);
 
-		when(userRepo.existsById(1)).thenReturn(false);
-
-		User updatedUser = userServ.updateUser(mockUser);
-		assertNull(updatedUser);
-	}
 
 
 	// Register
@@ -142,23 +133,6 @@ public class UserServiceTest {
 		assertEquals(10, actualUser.getId());
 	}
 
-	@Test
-	public void registerUserSomethingWrong() throws UsernameAlreadyExistsException {
-		User user = new User();
-		when(userRepo.save(user)).thenThrow(new RuntimeException());
-		User actualUser = userServ.register(user);
-		assertNull(actualUser);
-	}
-
-	@Test
-	public void registerUserUsernameAlreadyExists() {
-		User user = new User();
-		when(userRepo.save(user)).thenThrow(new RuntimeException("unique constraint violation"));
-
-		assertThrows(UsernameAlreadyExistsException.class, () -> {
-			userServ.register(user);
-		});
-	}
 
 	
 	//Get user by Id

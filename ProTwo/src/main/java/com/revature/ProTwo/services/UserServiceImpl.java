@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation=Propagation.SUPPORTS)
 	public User register(User newUser) throws UsernameAlreadyExistsException {
 		int newId = userRepo.save(newUser).getId();
 		if (newId > 0) {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.SUPPORTS)
 	public User updateUser(User userToUpdate) {
 		if (userRepo.existsById(userToUpdate.getId())) {
 			userRepo.save(userToUpdate);
