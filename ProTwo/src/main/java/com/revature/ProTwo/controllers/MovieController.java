@@ -139,8 +139,9 @@ public class MovieController {
 	// Post to /movie/{movie_id}/rate
 	@PutMapping(path = "/{movie_id}/rate")//////??????????????????????
 	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating,
-			@PathVariable int movieId) {
+			@PathVariable("movie_id") int movieId) {
 		if (newRating != null) {
+			System.out.println(newRating);
 			movieServ.rateMovie(newRating);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
