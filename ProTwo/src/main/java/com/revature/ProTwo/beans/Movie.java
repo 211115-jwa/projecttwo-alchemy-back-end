@@ -25,7 +25,7 @@ public class Movie {
 	private String movieRating;
 	
 	private String genre;
-	
+	private String image;
 	public Movie() {
 
 		id = 1;
@@ -34,9 +34,17 @@ public class Movie {
 		description = "";
 		movieRating = "";
 		genre = "";
-		
+		image="";
 	}
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public Movie(int id) {
 		super();
 		this.id = id;
