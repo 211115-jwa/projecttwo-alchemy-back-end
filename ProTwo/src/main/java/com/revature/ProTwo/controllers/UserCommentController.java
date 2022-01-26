@@ -59,12 +59,12 @@ public class UserCommentController {
 
 	// POST to /comment/{comment_id}/delete,
 	@PostMapping(path = "{comment_id}/delete")
-	public ResponseEntity<Map<String, Integer>> delete(@RequestBody UserComment newUserCmm, @PathVariable("comment_id") int commentId)
+	public ResponseEntity<Map<String, Integer>> delete(@PathVariable("comment_id") int commentId)
 			throws CommentNotFoundException {
 
-		newUserCmm = cmmServ.delete(newUserCmm);
+		UserComment deletedUserCmm = cmmServ.delete(cmmServ.getCommentById(commentId));
 		Map<String, Integer> newIdMap = new HashMap<>();
-		newIdMap.remove("generatedId", newUserCmm.getId());
+		newIdMap.remove("generatedId", deletedUserCmm.getId());
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(newIdMap);
 	}
 }

@@ -52,6 +52,9 @@ public class CommentServiceImpl implements CommentService{
 		return userCmm;
 	}
 
+	public UserComment getCommentById(int comment_id) {
+		return cmmtRepo.findById(comment_id).get();
+	}
 	@Override
 	public Set<UserComment> viewAllCommentsByReview(Review review) {
 		return cmmtRepo.findAllByReviewId(review.getId());
