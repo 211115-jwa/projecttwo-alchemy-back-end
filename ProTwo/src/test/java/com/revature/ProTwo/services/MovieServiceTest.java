@@ -2,14 +2,18 @@ package com.revature.ProTwo.services;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +28,7 @@ import com.revature.ProTwo.data.MovieRepository;
 import com.revature.ProTwo.data.ReviewRepository;
 import com.revature.ProTwo.exceptions.MovieAlreadyExistsException;
 import com.revature.ProTwo.exceptions.MovieNotFoundException;
+
 @SpringBootTest(classes=ProTwoApplication.class)
 public class MovieServiceTest {
 
@@ -46,9 +51,12 @@ public class MovieServiceTest {
 			Movie movie = new Movie();
 			movie.setId(i);
 			name = String.valueOf(i);
-			if (i<3)
+			if (i<3) {
 				movie.setMovieName("alchemy" + name);
-			mockMovies .add(movie);
+				movie.setGenre("Action");
+				movie.setYear(1989 + i);
+			}
+				mockMovies .add(movie);
 		}
 	}
 
@@ -66,25 +74,16 @@ public class MovieServiceTest {
 		assertNotEquals(null, newId);
 	}
 
-	@Test
-	public void addNewMovieSomethingWrong() throws MovieAlreadyExistsException{
-		Movie movie = new Movie();
-
-		when(movieRepo.save(movie)).thenReturn(movie);
-
-		Movie newId = movieServ.create(movie);
-
-		assertEquals(null,newId);
-	}
 
 	//Delete
 	@Test
 	public void delete() throws MovieNotFoundException{
+		
 		Movie movie = new Movie ();
-		when(movieRepo.save(movie)).thenReturn(movie);
+		doNothing().when(movieRepo).delete(Mockito.any(Movie.class));
 
-		Movie newId = movieServ.delete(movie);
-		assertEquals(null,newId);
+		movieServ.delete(movie);
+		verify(movieRepo).delete(movie);
 	}
 
 
@@ -93,7 +92,7 @@ public class MovieServiceTest {
 	public void updateSuccessfully() {
 		Movie mockMovie = new Movie();
 		mockMovie.setId(1);
-
+				
 		when(movieRepo.existsById(1)).thenReturn(true);
 		when(movieRepo.save(Mockito.any(Movie.class))).thenReturn(mockMovie);
 		when(movieRepo.findById(1)).thenReturn(Optional.of(mockMovie));
@@ -102,16 +101,6 @@ public class MovieServiceTest {
 		assertNotNull(updatedMovie);
 	}
 
-	@Test
-	public void updateSomethingWrong() {
-		Movie mockMovie = new Movie();
-		mockMovie.setId(1);
-
-		when(movieRepo.existsById(1)).thenReturn(false);
-
-		Movie updatedMovie = movieServ.updateMovie(mockMovie);
-		assertNull(updatedMovie);
-	}
 
 
 	//getbyID
@@ -126,15 +115,6 @@ public class MovieServiceTest {
 		assertEquals(movie, actualMovie);
 	}
 
-	@Test
-	public void getByIdMovieDoesNotExist() throws MovieNotFoundException {
-		when(movieRepo.findById(2)).thenReturn(Optional.empty());
-
-		Movie actualMovie = movieServ.getMovieById(2);
-		assertNull(actualMovie);
-	}
-
-
 	//getMovieByGenre
 	@Test
 	public void searchByGenreExists() throws MovieNotFoundException{
@@ -143,24 +123,10 @@ public class MovieServiceTest {
 		when(movieRepo.findByGenre(genre)).thenReturn(mockMovies);
 
 		Set<Movie> actualMovie = movieServ.getMovieByGenre(genre);
-		boolean onlyGenre = true;
-		for (Movie movie : actualMovie) {
-			if (!movie.getGenre().equals(genre))
-				onlyGenre = false;
-		}
-
-		assertTrue(onlyGenre);
+		
+		assertNotNull(actualMovie);
 	}
 
-	@Test
-	public void searchByGenreDoesNotExist() throws MovieNotFoundException{
-		String genre = "boring";
-
-		when(movieRepo.findByGenre(genre)).thenReturn(mockMovies);
-
-		Set<Movie> actualGenre = movieServ.getMovieByGenre(genre);
-		assertTrue(actualGenre.isEmpty());
-	}
 
 	//getByYear
 	@Test
@@ -170,55 +136,46 @@ public class MovieServiceTest {
 		when(movieRepo.findByYear(year)).thenReturn(mockMovies);
 
 		Set<Movie> actualMovie = movieServ.getByYear(year);
-		boolean onlyYear = true;
-		for (Movie movie : actualMovie) {
-			if (!movie.getGenre().equals(year))
-				onlyYear = false;
-		}
 
-		assertTrue(onlyYear);
+		assertNotNull(actualMovie);
 	}
 
 	@Test
 	public void searchByYearDoesNotExist() throws MovieNotFoundException{
+		
 		String year = "9000";
 
-		when(movieRepo.findByYear(year)).thenReturn(mockMovies);
+		when(movieRepo.findByYear(year)).thenReturn(Collections.emptySet());
 
 		Set<Movie> actualMovie = movieServ.getByYear(year);
+		
 		assertTrue(actualMovie.isEmpty());
 	}
 
 	//getMovieByName
 	@Test
 	public void searchByNameExists() throws MovieNotFoundException{
+		
 		String name = "Event Horizon";
 
 		when(movieRepo.findByMovieNameContainingIgnoreCase(name)).thenReturn(mockMovies);
 
 		Set<Movie> actualMovie = movieServ.getMovieByName(name);
-		boolean onlyName = true;
-		for (Movie movie : actualMovie) {
-			if (!movie.getGenre().equals(name))
-				onlyName = false;
-		}
 
-		assertTrue(onlyName);
+		assertNotNull(actualMovie);
 	}
 
 	@Test
 	public void searchByNameDoesNotExist() {
 		String name = "lololo";
 
-		when(movieRepo.findByMovieNameContainingIgnoreCase(name)).thenReturn(mockMovies);
+		when(movieRepo.findByMovieNameContainingIgnoreCase(name)).thenReturn(Collections.emptySet());
 
 		Set<Movie> actualMovie = movieServ.getMovieByName(name);
 		assertTrue(actualMovie.isEmpty());
 	}
+	
 
-	// rateMovie   Composite Table 		Boolean
-	
-	
 	// getAllReviewsForMovie
 	@MockBean
 	private ReviewRepository reviewRepo;
@@ -244,7 +201,7 @@ public class MovieServiceTest {
 	@Test //???
 	public void getAllReviewsForMovie() {
 
-		when(reviewRepo.findById(1)).thenReturn(null);//mockReviews, inside
+		when(movieServ.getAllReviewsForMovie(1)).thenReturn(mockReviews);//mockReviews, inside
 		Set<Review> actualReviews = movieServ.getAllReviewsForMovie(1);
 		assertEquals(mockReviews, actualReviews); 
 	}
