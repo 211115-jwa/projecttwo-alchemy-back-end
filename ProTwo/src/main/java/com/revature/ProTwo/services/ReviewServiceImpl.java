@@ -55,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	@Override
-	public Set<UserComment> viewAllCommentsByReview(Review review){
-		return cmmtRepo.findAllByReviewId(review.getId());
+	public Set<UserComment> getAllCommentsForReview(int reviewId){
+		return cmmtRepo.findByReviewOrderBySentAtDesc(revRepo.findById(reviewId).get());
 	}
 }
