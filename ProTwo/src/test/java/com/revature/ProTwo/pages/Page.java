@@ -15,7 +15,9 @@ public class Page {
 	@FindBy(id="passwd")
 	private WebElement passwordInput;
 	@FindBy(id="loginBtn")
-	private WebElement loginBtn;
+	private WebElement submitBtn;
+	@FindBy(id="sL")
+	private WebElement logBtn;
 
 
 
@@ -24,20 +26,28 @@ public class Page {
 		PageFactory.initElements(driver, this);
 	}
 
+	
 	public void navigateTo(String url) {
 		driver.get(url);
+		//http://localhost:4200/movie
+		//http://localhost:4200/home
 	}
-	//http://localhost:4200/movie
-	//http://localhost:4200/home
+	
+	
+	public void clickLoginButton() {
+		logBtn.click();	
+	}
 
 	public void submitLogin(String username, String password) {
-		usernameInput.sendKeys(username);
-		passwordInput.sendKeys(password);
-		loginBtn.click();
+		//usernameInput.sendKeys(username);
+		//passwordInput.sendKeys(password);
+		//loginBtn.click();
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("passwd")).sendKeys(password);
 	}
 	
 	public void clickSubmitLogin() {
-		loginBtn.click();
+		submitBtn.click();
 	}
 
 	// Add Tag element from the front end if not use the next code with ID
@@ -154,6 +164,7 @@ public class Page {
 	public void uploadReviewClick() {
 		uploadReview.click();
 	}
+
 
 
 }
