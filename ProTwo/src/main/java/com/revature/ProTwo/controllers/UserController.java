@@ -53,7 +53,7 @@ public class UserController {
 
 		try {
 			User user = userServ.logIn(username, password);
-			String token = Long.toString(user.getRank().getId());
+			String token = Long.toString(user.getId());//user.getRank().getId());
 			return ResponseEntity.ok(token);
 		} catch (IncorrectCredentialsException e) {
 			return ResponseEntity.notFound().build();
@@ -62,7 +62,7 @@ public class UserController {
 
 	// GET to /user/{userId}/auth
 	@GetMapping(path = "/{userId}/auth")
-	public ResponseEntity<User> checkLogin(@RequestBody String token, @PathVariable int userId) {
+	public ResponseEntity<User> checkLogin( @PathVariable int userId) {
 		User loggedInUser = userServ.getUserById(userId);
 		if (loggedInUser != null) {
 			return ResponseEntity.ok(loggedInUser);

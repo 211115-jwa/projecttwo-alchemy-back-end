@@ -12,5 +12,5 @@ public interface ReviewService {
 	public Review postNewReview(Review newReview);
 	public void likeReview(ReviewLikes newLike);
 	public Review getReviewById(int review_id);
-	public Set<UserComment> viewAllCommentsByReview(Review review);
+	public Set<UserComment> getAllCommentsForReview(int reviewId);
 }

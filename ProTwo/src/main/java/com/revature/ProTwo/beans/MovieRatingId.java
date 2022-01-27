@@ -14,33 +14,35 @@ public class MovieRatingId implements Serializable {
 	//default serialVersionUID
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "p_user.id", nullable = false, insertable = false, updatable = false)
-    private Long userId;
+	@Column(name = "user.id", nullable = false, insertable = false, updatable = false)
+    private int userId;
 
     @Column(name = "movie.id", nullable = false, insertable = false, updatable = false)
-    private Long movieId;
+    private int movieId;
 
     public MovieRatingId() {
+    	this.userId = 0;
+        this.movieId = 0;
     }
 
-    public MovieRatingId(Long userId, Long movieId) {
+    public MovieRatingId(int userId, int movieId) {
         this.userId = userId;
         this.movieId = movieId;
     }
 
-	public Long getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Long userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public Long getMovieId() {
+	public int getMovieId() {
 		return movieId;
 	}
 
-	public void setMovieId(Long movieId) {
+	public void setMovieId(int movieId) {
 		this.movieId = movieId;
 	}
 

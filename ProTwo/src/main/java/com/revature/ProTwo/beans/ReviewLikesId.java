@@ -27,7 +27,6 @@ public class ReviewLikesId implements Serializable {
     
     
 	public ReviewLikesId(Long userId, Long reviewId) {
-		super();
 		this.userId = userId;
 		this.reviewId = reviewId;
 	}

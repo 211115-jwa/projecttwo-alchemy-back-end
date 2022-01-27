@@ -1,5 +1,6 @@
 package com.revature.ProTwo.services;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,11 @@ public class MovieServiceImpl implements MovieService{
 		}
 		return null;
 	}
-
+@Override
+public List<Movie> viewMovies(){
+	return movieRepo.findAll();
+}
+	
 	@Override
 	public Set<Movie> getMovieByGenre(String genre) {
 		return movieRepo.findByGenre(genre);
@@ -83,7 +88,7 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Override
 	public Set<Review> getAllReviewsForMovie(int movieId) {
-		return revRepo.findByMovieOrderBySentAtDesc(movieId);
+		return revRepo.findByMovieOrderBySentAtDesc(movieRepo.findById(movieId).get());
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public class ReviewController {
 	@PostMapping(path = "/like")
 	public ResponseEntity<Void> likeReview(@RequestBody ReviewLikes newLike) {
 		if (newLike != null) {
-			
+			System.out.println(newLike);
 			revServ.likeReview(newLike);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
@@ -54,9 +54,9 @@ public class ReviewController {
 	}
 
 	// GET to /review/{review_id}/get_comments
-	@GetMapping(path = "/comment/{reviewId}")
-	public ResponseEntity<Set<UserComment>> getReviewComments(@PathVariable int reviewId) {
-		Set<UserComment> cmnt = revServ.viewAllCommentsByReview(revServ.getReviewById(reviewId));
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(cmnt);
+	@GetMapping(path = "/{review_id}/get_comments")
+	public ResponseEntity<Set<UserComment>> getReviewComments(@PathVariable("review_id") int reviewId) {
+		Set<UserComment> allComments = revServ.getAllCommentsForReview(reviewId);
+		return ResponseEntity.ok(allComments);
 	}
 }

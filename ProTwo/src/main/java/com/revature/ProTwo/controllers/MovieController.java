@@ -1,6 +1,7 @@
 package com.revature.ProTwo.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -39,6 +40,14 @@ public class MovieController {
 		MovieController.movieServ = movieServ;
 	}
 
+	@GetMapping
+	public ResponseEntity<List<Movie>> getMovies() {
+		
+		List<Movie> allMovies = movieServ.viewMovies();
+		return ResponseEntity.ok(allMovies);
+	}
+
+	
 	@PostMapping
 	public ResponseEntity<Map<String, Integer>> create(@RequestBody Movie newMovie) {
 
@@ -122,16 +131,17 @@ public class MovieController {
 
 	// Get to /movie/{movie_id}/get_reviews
 	@GetMapping(path = "/{movie_id}/get_reviews")
-	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable int movieId) {
+	public ResponseEntity<Set<Review>> getReviewsForMovie(@PathVariable("movie_id") int movieId) {
 		Set<Review> allReviewsForMovie = movieServ.getAllReviewsForMovie(movieId);
 		return ResponseEntity.ok(allReviewsForMovie);
 	}
 
 	// Post to /movie/{movie_id}/rate
-	@PutMapping(path = "/{movie_id}/rate")
+	@PutMapping(path = "/{movie_id}/rate")//////??????????????????????
 	public ResponseEntity<Void> rateMovie(@RequestBody MovieRating newRating,
-			@PathVariable int movieId) {
+			@PathVariable("movie_id") int movieId) {
 		if (newRating != null) {
+			System.out.println(newRating);
 			movieServ.rateMovie(newRating);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		}
