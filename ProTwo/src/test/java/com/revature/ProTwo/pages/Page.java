@@ -10,7 +10,7 @@ public class Page {
 
 	private WebDriver driver;
 
-	@FindBy(id="user_id")
+	@FindBy(id="username")
 	private WebElement usernameInput;
 	@FindBy(id="passwd")
 	private WebElement passwordInput;
@@ -24,13 +24,19 @@ public class Page {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void navigateTo() {
-		driver.get("http://localhost:4200");
+	public void navigateTo(String url) {
+		driver.get(url);
 	}
+	//http://localhost:4200/movie
+	//http://localhost:4200/home
 
 	public void submitLogin(String username, String password) {
 		usernameInput.sendKeys(username);
 		passwordInput.sendKeys(password);
+		loginBtn.click();
+	}
+	
+	public void clickSubmitLogin() {
 		loginBtn.click();
 	}
 
@@ -39,11 +45,11 @@ public class Page {
 	//		WebElement errorMsg = driver.findElement(By.tagName(""));
 	//		return errorMsg.getText();
 	//	}
-
-	public String getErrorMessage() {
-		WebElement errorMsg = driver.findElement(By.id(""));
-		return errorMsg.getText();
-	}
+//
+//	public String getErrorMessage() {
+//		WebElement errorMsg = driver.findElement(By.id(""));
+//		return errorMsg.getText();
+//	}
 
 	
 	// This three methods is for Comments
