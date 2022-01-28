@@ -6,16 +6,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class Page {
 
 	private WebDriver driver;
 
-	@FindBy(id="user_id")
+	@FindBy(id="username")
 	private WebElement usernameInput;
 	@FindBy(id="passwd")
 	private WebElement passwordInput;
 	@FindBy(id="loginBtn")
-	private WebElement loginBtn;
+	private WebElement submitBtn;
+	@FindBy(id="sL")
+	private WebElement logBtn;
 
 
 
@@ -24,14 +27,28 @@ public class Page {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void navigateTo() {
-		driver.get("http://localhost:4200");
+	
+	public void navigateTo(String url) {
+		driver.get(url);
+		//http://localhost:4200/movie
+		//http://localhost:4200/home
+	}
+	
+	
+	public void clickLoginButton() {
+		logBtn.click();	
 	}
 
 	public void submitLogin(String username, String password) {
-		usernameInput.sendKeys(username);
-		passwordInput.sendKeys(password);
-		loginBtn.click();
+		//usernameInput.sendKeys(username);
+		//passwordInput.sendKeys(password);
+		//loginBtn.click();
+		driver.findElement(By.id("username")).sendKeys(username);
+		driver.findElement(By.id("passwd")).sendKeys(password);
+	}
+	
+	public void clickSubmitLogin() {
+		submitBtn.click();
 	}
 
 	// Add Tag element from the front end if not use the next code with ID
@@ -39,11 +56,11 @@ public class Page {
 	//		WebElement errorMsg = driver.findElement(By.tagName(""));
 	//		return errorMsg.getText();
 	//	}
-
-	public String getErrorMessage() {
-		WebElement errorMsg = driver.findElement(By.id(""));
-		return errorMsg.getText();
-	}
+//
+//	public String getErrorMessage() {
+//		WebElement errorMsg = driver.findElement(By.id(""));
+//		return errorMsg.getText();
+//	}
 
 	
 	// This three methods is for Comments
@@ -150,8 +167,8 @@ public class Page {
 	}
 
 
-}
 
+}
 
 
 

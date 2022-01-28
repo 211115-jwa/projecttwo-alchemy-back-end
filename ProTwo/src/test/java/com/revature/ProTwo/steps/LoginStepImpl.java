@@ -1,15 +1,23 @@
 package com.revature.ProTwo.steps;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import com.revature.ProTwo.pages.Page;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,7 +25,7 @@ import io.cucumber.java.en.When;
 public class LoginStepImpl {
 
 	private Page page;
-	private WebDriver driver;
+	private WebDriver driver = null;
 
 	{
 		File file = new File("src/test/resources/chromedriver.exe");
@@ -28,31 +36,40 @@ public class LoginStepImpl {
 	}
 
 
-	@Given("the user is on the movie login page")
-	public void the_user_is_on_the_movie_login_page() {
-		page.navigateTo();
+	
+
+
+
+
+	@Given("user is on login page")
+	public void user_is_on_login_page() {
+
+		page.navigateTo("http://localhost:4200/home");
+		page.clickLoginButton();
 	}
 
-	@When("the user enters the username and password")
-	public void the_user_enters_the_username_and_password() {
-		page.submitLogin("standard_user_id", "secret_passwd");
+	@When("user enters username and password")
+	public void user_enters_username_and_password() {
+
+		page.submitLogin("buster", "pass");
 	}
 
-	@Then("the user should be taken to a different page")
-	public void the_user_should_be_taken_to_a_different_page() {
-		assertNotEquals("http://localhost:8080",driver.getCurrentUrl());
+	@And("user click on Submit")
+	public void user_click_on_submit() {
+
+		page.clickSubmitLogin();
 	}
 
-	@When("the user enters an incorrect username and password")
-	public void the_user_enters_an_incorrect_username_and_password() {
-		page.submitLogin("incorrect", "incorrect");
-	}
+	@Then("user is navigated to the home page")
+	public void user_is_navigated_to_the_home_page() {
+		
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(5))
+				.pollingEvery(Duration.ofMillis(50));
+		wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("lo"), 0));
 
-	@Then("the appropriate error message should appear")
-	public void the_appropriate_error_message_should_appear() {
-		String errorMsg = page.getErrorMessage();
-
-		assertTrue(errorMsg.contains("Username and password"));
+		driver.findElement(By.id("lo")).isDisplayed();
+		driver.quit();
 	}
 
 }

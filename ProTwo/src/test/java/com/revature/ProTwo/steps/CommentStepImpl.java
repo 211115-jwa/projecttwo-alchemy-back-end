@@ -13,11 +13,11 @@ public class CommentStepImpl {
 	private WebDriver driver;
 	private Page page;
 	
-	@Given("the user is on the page of a review")
-	public void the_user_is_on_the_page_of_a_review() {
-		
-		driver.get("http://localhost:8080");
-	}
+//	@Given("the user is on the page of a review")
+//	public void the_user_is_on_the_page_of_a_review() {
+//		
+//		driver.get("http://localhost:8080");
+//	}
 
 	@When("the user click's comment on a specific movie")
 	public void the_user_click_s_comment_on_a_specific_review() {
