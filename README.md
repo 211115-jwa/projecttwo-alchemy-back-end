@@ -1,8 +1,9 @@
 # projecttwo-alchemy-back-end
  
  
- # Project 2: Group Project
-This project is meant to show not only your ability to write code and tests, but also to work on a team using Agile/Scrum.
+ # Project 2: Spoiler Room
+ Front End located at:
+ https://github.com/211115-jwa/projecttwo-alchemy-front-end
 ​
 ## Setup
 1. Your team will spend 15-20 minutes coming up with ideas for the project. You should come up with 2-3 ideas, then write a 1-2 sentence proposal for each application and send it to me.
